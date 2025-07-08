@@ -11,9 +11,9 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isGrounded;
     public TextMeshProUGUI lifeText;
-    public int maxLives = 99;         
-
+    public TextMeshProUGUI coinText;
     private int lives = 3;
+    private int coinCount = 0;
     private Vector2 startPosition = new Vector2(-8f, 0f);
 
     void Start()
@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         isGrounded = false;
         transform.position = startPosition;
+        UpdateCoinUI();
     }
 
     void Update()
@@ -79,4 +80,22 @@ public class PlayerMovement : MonoBehaviour
             isGrounded = true;
         }
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("coin"))
+        {
+            coinCount++;
+            UpdateCoinUI();
+            Destroy(collision.gameObject); // Coin verschwindet
+        }
+    }
+    private void UpdateCoinUI()
+    {
+        if (coinText != null)
+        {
+            coinText.text = "Coins: " + coinCount.ToString();
+        }
+    }
+
+
 }
