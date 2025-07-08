@@ -15,7 +15,10 @@
 *.booproj
 *.svd
 
+
 *.pdb
 *.mdb
 *.opendb
 *.VC.db
+
+.vs/
