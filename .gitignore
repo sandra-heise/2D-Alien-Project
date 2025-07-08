@@ -22,3 +22,4 @@
 *.VC.db
 
 .vs/
+Logs/
