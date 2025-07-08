@@ -15,6 +15,7 @@ TagManager:
   - rock
   - snakeLava
   - ghost
+  - ground
   layers:
   - Default
   - TransparentFX
