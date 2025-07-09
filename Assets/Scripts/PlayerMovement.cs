@@ -93,7 +93,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (coinText != null)
         {
-            coinText.text = "Coins: " + coinCount.ToString();
+            coinText.text = ": " + coinCount.ToString();
         }
     }
 
