@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         // Pr�fe, ob Spieler zu tief gefallen ist
-        if (transform.position.y < -20f)
+        if (transform.position.y < -30f)
         {
             LoseLife();
         }
@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
   
-        if (isInWater && powerup != null && powerup.IsPowered)
+        if (isInWater)//&& powerup != null && powerup.IsPowered)
         {
             // Spieler schwimmt frei (Pfeiltasten in alle Richtungen)
             float verticalInput = Input.GetAxisRaw("Vertical");
