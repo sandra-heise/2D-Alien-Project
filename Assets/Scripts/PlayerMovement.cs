@@ -16,7 +16,8 @@ public class PlayerMovement : MonoBehaviour
     private int lives = 3;
     private int coinCount = 0;
     private Vector2 startPosition = new Vector2(-8f, 0f);
-    private bool isInWater = false;
+    private int waterTriggerCount = 0;
+    private bool isInWater => waterTriggerCount > 0;
     private PlayerPowerup powerup;
 
 
@@ -46,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
   
-        if (isInWater)//&& powerup != null && powerup.IsPowered)
+        if (isInWater && powerup != null && powerup.IsPowered)
         {
             // Spieler schwimmt frei (Pfeiltasten in alle Richtungen)
             float verticalInput = Input.GetAxisRaw("Vertical");
@@ -121,7 +122,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (collision.CompareTag("water"))
         {
-            isInWater = true;
+            waterTriggerCount++;
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
@@ -136,7 +137,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.CompareTag("water"))
         {
-            isInWater = false;
+            waterTriggerCount--;
+            if (waterTriggerCount < 0) waterTriggerCount = 0;
         }
     }
 
