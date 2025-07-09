@@ -16,6 +16,8 @@ TagManager:
   - snakeLava
   - ghost
   - ground
+  - bridge
+  - water
   layers:
   - Default
   - TransparentFX
