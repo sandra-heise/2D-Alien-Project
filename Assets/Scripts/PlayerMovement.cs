@@ -60,6 +60,13 @@ public class PlayerMovement : MonoBehaviour
     {
         lives--;
 
+        PlayerPowerup power = GetComponent<PlayerPowerup>();
+        if (power != null)
+        {
+            power.CancelPowerUp();
+        }
+
+
         UpdateLifeUI();
 
         if (lives > 0)

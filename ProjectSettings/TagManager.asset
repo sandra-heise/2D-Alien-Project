@@ -18,6 +18,7 @@ TagManager:
   - ground
   - bridge
   - water
+  - diamantBlue
   layers:
   - Default
   - TransparentFX
