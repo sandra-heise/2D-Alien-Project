@@ -15,6 +15,7 @@ public class PlayerPowerup : MonoBehaviour
     private float powerDuration = 60f;
     private float currentTime;
     private Diamond lastCollectedDiamond;
+    public bool IsPowered { get; private set; }
 
     void Start()
     {

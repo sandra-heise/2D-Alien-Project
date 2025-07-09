@@ -1,6 +1,7 @@
+using System.Diagnostics;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
     private int lives = 3;
     private int coinCount = 0;
     private Vector2 startPosition = new Vector2(-8f, 0f);
+    private bool isInWater = false;
+
 
     void Start()
     {
@@ -88,9 +91,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (collision.collider.CompareTag("bridge"))
         {
-            Debug.Log("Spieler bekommt Parent: " + collision.collider.name);
             transform.SetParent(collision.transform);
-            Debug.Log("Neuer Parent: " + transform.parent.name);
         }
     }
    
@@ -102,12 +103,26 @@ public class PlayerMovement : MonoBehaviour
             UpdateCoinUI();
             Destroy(collision.gameObject);
         }
+        if (collision.CompareTag("water"))
+        {
+            isInWater = true;
+            UnityEngine.Debug.Log("Spieler ist jetzt im Wasser");
+        }
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.collider.CompareTag("bridge"))
         {
             transform.SetParent(null); 
+        }
+  
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("water"))
+        {
+            isInWater = false;
+            UnityEngine.Debug.Log("Spieler hat das Wasser verlassen");
         }
     }
 
