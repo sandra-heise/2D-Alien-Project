@@ -17,11 +17,13 @@ public class PlayerMovement : MonoBehaviour
     private int coinCount = 0;
     private Vector2 startPosition = new Vector2(-8f, 0f);
     private bool isInWater = false;
+    private PlayerPowerup powerup;
 
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        powerup = GetComponent<PlayerPowerup>();
         isGrounded = false;
         transform.position = startPosition;
         UpdateCoinUI();
@@ -43,12 +45,26 @@ public class PlayerMovement : MonoBehaviour
             moveInput = 0f;
         }
 
-        rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
-
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+  
+        if (isInWater && powerup != null && powerup.IsPowered)
         {
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            isGrounded = false;
+            // Spieler schwimmt frei (Pfeiltasten in alle Richtungen)
+            float verticalInput = Input.GetAxisRaw("Vertical");
+
+            rb.gravityScale = 0f; // Kein Sinken
+            rb.linearVelocity = new Vector2(moveInput * moveSpeed, verticalInput * moveSpeed);
+        }
+        else
+        {
+            // laufen und springen
+            rb.gravityScale = 3f;
+            rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
+
+            if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+            {
+                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+                isGrounded = false;
+            }
         }
     }
     private void UpdateLifeUI()
@@ -106,7 +122,6 @@ public class PlayerMovement : MonoBehaviour
         if (collision.CompareTag("water"))
         {
             isInWater = true;
-            UnityEngine.Debug.Log("Spieler ist jetzt im Wasser");
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
@@ -122,7 +137,6 @@ public class PlayerMovement : MonoBehaviour
         if (collision.CompareTag("water"))
         {
             isInWater = false;
-            UnityEngine.Debug.Log("Spieler hat das Wasser verlassen");
         }
     }
 

@@ -11,11 +11,10 @@ public class PlayerPowerup : MonoBehaviour
     public TextMeshProUGUI timerText; 
 
     private SpriteRenderer sr;
-    private bool isPoweredUp = false;
     private float powerDuration = 60f;
+    public bool IsPowered = false;
     private float currentTime;
     private Diamond lastCollectedDiamond;
-    public bool IsPowered { get; private set; }
 
     void Start()
     {
@@ -28,7 +27,7 @@ public class PlayerPowerup : MonoBehaviour
 
     void Update()
     {
-        if (isPoweredUp)
+        if (IsPowered)
         {
             currentTime -= Time.deltaTime;
 
@@ -44,7 +43,7 @@ public class PlayerPowerup : MonoBehaviour
 
     void EndPowerUp()
     {
-        isPoweredUp = false;
+        IsPowered = false;
         sr.sprite = greenSprite;
 
         if (timerText != null)
@@ -54,7 +53,7 @@ public class PlayerPowerup : MonoBehaviour
     public void ActivatePowerUp(Diamond diamond)
     {
         sr.sprite = blueSprite;
-        isPoweredUp = true;
+        IsPowered = true;
         currentTime = powerDuration;
         lastCollectedDiamond = diamond;
 
@@ -64,7 +63,7 @@ public class PlayerPowerup : MonoBehaviour
 
     public void CancelPowerUp()
     {
-        isPoweredUp = false;
+        IsPowered = false;
         sr.sprite = greenSprite;
 
         if (timerText != null)
