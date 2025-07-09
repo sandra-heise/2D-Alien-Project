@@ -79,16 +79,31 @@ public class PlayerMovement : MonoBehaviour
         {
             isGrounded = true;
         }
+        if (collision.collider.CompareTag("bridge"))
+        {
+            Debug.Log("Spieler bekommt Parent: " + collision.collider.name);
+            transform.SetParent(collision.transform);
+            Debug.Log("Neuer Parent: " + transform.parent.name);
+        }
     }
+   
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("coin"))
         {
             coinCount++;
             UpdateCoinUI();
-            Destroy(collision.gameObject); // Coin verschwindet
+            Destroy(collision.gameObject);
         }
     }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("bridge"))
+        {
+            transform.SetParent(null); 
+        }
+    }
+
     private void UpdateCoinUI()
     {
         if (coinText != null)
