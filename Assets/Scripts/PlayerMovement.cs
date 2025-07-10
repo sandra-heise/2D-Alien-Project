@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     public TextMeshProUGUI coinText;
     private int lives = 3;
     private int coinCount = 0;
-    private Vector2 startPosition = new Vector2(-8f, 0f);
+    private Vector2 startPosition = new Vector2(1.7f, -7.15f);//new Vector2(-8f, 0f);
     private int waterTriggerCount = 0;
     private bool isInWater => waterTriggerCount > 0;
     private PlayerPowerup powerup;
@@ -97,6 +97,12 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             SceneManager.LoadScene("GameOver");
+        }
+
+        LeverMechanism lever = FindObjectOfType<LeverMechanism>();
+        if (lever != null)
+        {
+            lever.ResetMechanism();
         }
     }
 
