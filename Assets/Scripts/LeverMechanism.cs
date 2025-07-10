@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class LeverMechanism : MonoBehaviour
 {
@@ -15,6 +15,7 @@ public class LeverMechanism : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
     private bool isSwitched = false;
+    private bool playerInRange = false;
 
     private void Start()
     {
@@ -23,11 +24,27 @@ public class LeverMechanism : MonoBehaviour
         SetChainPositions();
     }
 
+    private void Update()
+    {
+        // Spieler ist in Reichweite und drückt Taste (z. B. E)
+        if (playerInRange && Input.GetKeyDown(KeyCode.E))
+        {
+            ToggleLever();
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            ToggleLever();
+            playerInRange = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            playerInRange = false;
         }
     }
 
