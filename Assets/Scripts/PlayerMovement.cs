@@ -141,7 +141,7 @@ public class PlayerMovement : MonoBehaviour
         {
             LoseLife();
         }
-        if (collision.CompareTag("keyGreen"))
+        if (collision.CompareTag("key"))
         {
             KeyFollower key = collision.GetComponent<KeyFollower>();
             if (key != null)
