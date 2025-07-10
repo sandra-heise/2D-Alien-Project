@@ -12,20 +12,17 @@ public class DoorController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("Trigger betreten von: " + collision.name);
-        if (collision.CompareTag("Player") && keyFollow != null && keyFollow.activeSelf)
+        if (collision.CompareTag("Player") && keyFollow != null )
         {
 
-            if (keyFollow != null)
+            KeyFollower keyFollowerScript = keyFollow.GetComponent<KeyFollower>();
+
+            if (keyFollowerScript != null && keyFollowerScript.IsCollected())
             {
                 Debug.Log("Key wird deaktiviert: " + keyFollow.name);
                 keyFollow.SetActive(false);
+                OpenDoor();
             }
-            else
-            {
-                Debug.LogWarning("KeyFollow ist NULL");
-            }
-
-            OpenDoor();
         }
     }
 
