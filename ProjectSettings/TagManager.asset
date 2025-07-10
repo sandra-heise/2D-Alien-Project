@@ -19,6 +19,7 @@ TagManager:
   - bridge
   - water
   - diamantBlue
+  - keyGreen
   layers:
   - Default
   - TransparentFX
