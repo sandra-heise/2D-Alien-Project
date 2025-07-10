@@ -124,6 +124,11 @@ public class PlayerMovement : MonoBehaviour
         {
             waterTriggerCount++;
         }
+        if (collision.CompareTag("Spike"))
+        {
+            LoseLife();
+        }
+
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
