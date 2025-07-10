@@ -15,6 +15,7 @@ public class Diamond : MonoBehaviour
             }
 
             gameObject.SetActive(false); // statt Destroy
+            Invoke(nameof(Respawn), respawnTime);     // respawn verzögert aufrufen
         }
     }
 
