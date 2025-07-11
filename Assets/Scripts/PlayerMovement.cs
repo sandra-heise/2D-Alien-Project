@@ -20,11 +20,14 @@ public class PlayerMovement : MonoBehaviour
     private bool isInWater => waterTriggerCount > 0;
     private PlayerPowerup powerup;
 
+    private Animator animator;
+
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         powerup = GetComponent<PlayerPowerup>();
+        animator = GetComponent<Animator>();
         isGrounded = false;
         transform.position = startPosition;
         UpdateCoinUI();
@@ -32,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        // Pr�fe, ob Spieler zu tief gefallen ist
+        // Pruefe, ob Spieler zu tief gefallen ist
         if (transform.position.y < -30f)
         {
             LoseLife();
@@ -61,12 +64,34 @@ public class PlayerMovement : MonoBehaviour
             rb.gravityScale = 3f;
             rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
 
+            // Springen
             if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
             {
                 rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
                 isGrounded = false;
             }
         }
+
+        // Animationen setzen
+        bool walking = Mathf.Abs(moveInput) > 0f;
+        animator.SetBool("isWalking", walking);
+
+        bool isPowered = powerup != null && powerup.IsPowered;
+        animator.SetBool("isPowered", isPowered);
+
+        bool isSwimming = isInWater && isPowered;
+        animator.SetBool("isSwimming", isSwimming);
+
+        // Figur drehen: nach rechts (normal) oder links (gespiegelt)
+        if (moveInput > 0)
+        {
+            transform.localScale = new Vector3(1, 1, 1);  // schaut nach rechts
+        }
+        else if (moveInput < 0)
+        {
+            transform.localScale = new Vector3(-1, 1, 1); // schaut nach links (gespiegelt)
+        }
+
     }
     private void UpdateLifeUI()
     {

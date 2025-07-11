@@ -78174,6 +78174,7 @@ GameObject:
   - component: {fileID: 2014646076}
   - component: {fileID: 2014646080}
   - component: {fileID: 2014646081}
+  - component: {fileID: 2014646082}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -78347,6 +78348,28 @@ MonoBehaviour:
   blueSprite: {fileID: 21300000, guid: 5a0a26a5c79031e42a909809038575c2, type: 3}
   timerText: {fileID: 709084212}
   IsPowered: 0
+--- !u!95 &2014646082
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014646075}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 7aed9ae894a3900499d7401947be0b97, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2016991301
 GameObject:
   m_ObjectHideFlags: 0
