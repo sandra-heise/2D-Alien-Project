@@ -5,27 +5,30 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Movement")]
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
 
-    private Rigidbody2D rb;
-
-    private bool isGrounded;
+    [Header("UI")]
     public TextMeshProUGUI lifeText;
     public TextMeshProUGUI coinText;
+
+    [Header("Umbrella")]
+    public Transform umbrellaAttachPoint;
+
+    private Rigidbody2D rb;
+    private Animator animator;
+    private PlayerPowerup powerup;
+
+    private bool isGrounded;
+    private bool hasUmbrella = false;
+    private GameObject currentUmbrella;
+
     private int lives = 3;
     private int coinCount = 0;
     private Vector2 startPosition = new Vector2(-8f, 0f);
     private int waterTriggerCount = 0;
     private bool isInWater => waterTriggerCount > 0;
-    private PlayerPowerup powerup;
-
-    private bool hasUmbrella = false;
-    public Transform umbrellaAttachPoint;
-    private GameObject currentUmbrella;
-
-    private Animator animator;
-
 
     void Start()
     {
@@ -39,27 +42,28 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        // Pruefe, ob Spieler zu tief gefallen ist
         if (transform.position.y < -30f)
         {
             LoseLife();
+            return;
         }
 
         float moveInput = Input.GetAxisRaw("Horizontal");
 
-        // Linke Begrenzung
         if (transform.position.x <= -8f && moveInput < 0)
-        {
             moveInput = 0f;
-        }
 
-  
-        if (isInWater && powerup != null && powerup.IsPowered)
+        HandleMovement(moveInput);
+        HandleAnimation(moveInput);
+        HandleDirection(moveInput);
+    }
+
+    private void HandleMovement(float moveInput)
+    {
+        if (isInWater && powerup?.IsPowered == true)
         {
-            // Spieler schwimmt frei (Pfeiltasten in alle Richtungen)
             float verticalInput = Input.GetAxisRaw("Vertical");
-
-            rb.gravityScale = 0f; // Kein Sinken
+            rb.gravityScale = 0f;
             rb.linearVelocity = new Vector2(moveInput * moveSpeed, verticalInput * moveSpeed);
         }
         else if (hasUmbrella)
@@ -69,156 +73,125 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            // laufen und springen
             rb.gravityScale = 3f;
             rb.linearVelocity = new Vector2(moveInput * moveSpeed, rb.linearVelocity.y);
 
-            // Springen
             if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
             {
                 rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
                 isGrounded = false;
             }
         }
-
-        // Animationen setzen
-        bool walking = Mathf.Abs(moveInput) > 0f;
-        animator.SetBool("isWalking", walking);
-
-        bool isPowered = powerup != null && powerup.IsPowered;
-        animator.SetBool("isPowered", isPowered);
-
-        bool isSwimming = isInWater && isPowered;
-        animator.SetBool("isSwimming", isSwimming);
-
-        // Figur drehen: nach rechts (normal) oder links (gespiegelt)
-        if (moveInput > 0)
-        {
-            transform.localScale = new Vector3(1, 1, 1);  // schaut nach rechts
-        }
-        else if (moveInput < 0)
-        {
-            transform.localScale = new Vector3(-1, 1, 1); // schaut nach links (gespiegelt)
-        }
-
     }
-   
+
+    private void HandleAnimation(float moveInput)
+    {
+        animator.SetBool("isWalking", Mathf.Abs(moveInput) > 0f);
+        bool isPowered = powerup?.IsPowered == true;
+        animator.SetBool("isPowered", isPowered);
+        animator.SetBool("isSwimming", isInWater && isPowered);
+    }
+
+    private void HandleDirection(float moveInput)
+    {
+        if (moveInput > 0)
+            transform.localScale = new Vector3(1, 1, 1);
+        else if (moveInput < 0)
+            transform.localScale = new Vector3(-1, 1, 1);
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.CompareTag("ground"))
         {
             isGrounded = true;
-        }
-        if (collision.collider.CompareTag("bridge"))
-        {
-            transform.SetParent(collision.transform);
-        }
-        if (collision.collider.CompareTag("ground") && hasUmbrella)
-        {
-            hasUmbrella = false;
 
-            if (currentUmbrella != null)
+            if (hasUmbrella)
             {
-                currentUmbrella.transform.SetParent(null);
-                Destroy(currentUmbrella); // oder: currentUmbrella.SetActive(false);
-                currentUmbrella = null;
+                hasUmbrella = false;
+                if (currentUmbrella != null)
+                {
+                    currentUmbrella.transform.SetParent(null);
+                    Destroy(currentUmbrella);
+                    currentUmbrella = null;
+                }
+                rb.gravityScale = 3f;
             }
-
-            rb.gravityScale = 3f; // Urspr�ngliche Schwerkraft wiederherstellen
-            UnityEngine.Debug.Log("Regenschirm entfernt beim Bodenkontakt.");
         }
+
+        if (collision.collider.CompareTag("bridge"))
+            transform.SetParent(collision.transform);
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.collider.CompareTag("bridge"))
-        {
             transform.SetParent(null);
-        }
-
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("coin"))
+        switch (collision.tag)
         {
-            coinCount++;
-            UpdateCoinUI();
-            Destroy(collision.gameObject);
+            case "coin":
+                coinCount++;
+                UpdateCoinUI();
+                Destroy(collision.gameObject);
+                break;
+
+            case "water":
+                waterTriggerCount++;
+                break;
+
+            case "Spike":
+                LoseLife();
+                break;
+
+            case "key":
+                var key = collision.GetComponent<KeyFollower>();
+                key?.Collect(transform);
+                break;
+
+            case "umbrella":
+                if (!hasUmbrella)
+                {
+                    hasUmbrella = true;
+                    currentUmbrella = collision.gameObject;
+                    currentUmbrella.transform.SetParent(umbrellaAttachPoint);
+                    currentUmbrella.transform.localPosition = Vector3.zero;
+                    currentUmbrella.transform.localRotation = Quaternion.identity;
+
+                    rb.gravityScale = 0.3f;
+                    rb.linearVelocity = new Vector2(rb.linearVelocity.x, -1f);
+                }
+                break;
         }
-        if (collision.CompareTag("water"))
-        {
-            waterTriggerCount++;
-        }
-        if (collision.CompareTag("Spike"))
-        {
-            LoseLife();
-        }
-        if (collision.CompareTag("key"))
-        {
-            KeyFollower key = collision.GetComponent<KeyFollower>();
-            if (key != null)
-            {
-                key.Collect(transform);
-            }
-        }
-
-
-        if (collision.CompareTag("umbrella") && !hasUmbrella)
-        {
-
-            hasUmbrella = true;
-            currentUmbrella = collision.gameObject;
-
-            // Regenschirm an Kopf heften
-            currentUmbrella.transform.SetParent(umbrellaAttachPoint);
-            currentUmbrella.transform.localPosition = Vector3.zero;
-
-            // Gravitation verringern
-            rb.gravityScale = 0.3f;
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, -1f);
-
-        }
-
-
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("water"))
         {
-            waterTriggerCount--;
-            if (waterTriggerCount < 0) waterTriggerCount = 0;
+            waterTriggerCount = Mathf.Max(0, waterTriggerCount - 1);
         }
     }
 
     private void UpdateCoinUI()
     {
         if (coinText != null)
-        {
-            coinText.text = ": " + coinCount.ToString();
-        }
+            coinText.text = ": " + coinCount;
     }
 
     private void UpdateLifeUI()
     {
         if (lifeText != null)
-        {
-            lifeText.text = "x " + lives.ToString();
-        }
+            lifeText.text = "x " + lives;
     }
 
     private void LoseLife()
     {
         lives--;
-
-        PlayerPowerup power = GetComponent<PlayerPowerup>();
-        if (power != null)
-        {
-            power.CancelPowerUp();
-        }
-
-
+        powerup?.CancelPowerUp();
         UpdateLifeUI();
 
         if (lives > 0)
@@ -231,19 +204,12 @@ public class PlayerMovement : MonoBehaviour
             SceneManager.LoadScene("GameOver");
         }
 
-        LeverMechanism lever = FindObjectOfType<LeverMechanism>();
-        if (lever != null)
-        {
-            lever.ResetMechanism();
-        }
+        FindObjectOfType<LeverMechanism>()?.ResetMechanism();
 
-        KeyFollower key = FindObjectOfType<KeyFollower>();
-        if (key != null && key.IsCollected())
+        var key = FindObjectOfType<KeyFollower>();
+        if (key?.IsCollected() == true)
         {
             key.ResetKey();
         }
-
     }
-
-
 }

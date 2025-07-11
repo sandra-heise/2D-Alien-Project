@@ -20,6 +20,7 @@ TagManager:
   - water
   - diamantBlue
   - key
+  - umbrella
   layers:
   - Default
   - TransparentFX
