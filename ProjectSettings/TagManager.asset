@@ -21,6 +21,7 @@ TagManager:
   - diamantBlue
   - key
   - umbrella
+  - lava
   layers:
   - Default
   - TransparentFX
