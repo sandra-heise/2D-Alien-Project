@@ -20,6 +20,10 @@ public class PlayerMovement : MonoBehaviour
     private bool isInWater => waterTriggerCount > 0;
     private PlayerPowerup powerup;
 
+    private bool hasUmbrella = false;
+    public Transform umbrellaAttachPoint;
+    private GameObject currentUmbrella;
+
     private Animator animator;
 
 
@@ -58,6 +62,11 @@ public class PlayerMovement : MonoBehaviour
             rb.gravityScale = 0f; // Kein Sinken
             rb.linearVelocity = new Vector2(moveInput * moveSpeed, verticalInput * moveSpeed);
         }
+        else if (hasUmbrella)
+        {
+            rb.gravityScale = 0.5f;
+            rb.linearVelocity = new Vector2(moveInput * moveSpeed, Mathf.Max(rb.linearVelocity.y, -1f));
+        }
         else
         {
             // laufen und springen
@@ -93,6 +102,104 @@ public class PlayerMovement : MonoBehaviour
         }
 
     }
+   
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("ground"))
+        {
+            isGrounded = true;
+        }
+        if (collision.collider.CompareTag("bridge"))
+        {
+            transform.SetParent(collision.transform);
+        }
+        if (collision.collider.CompareTag("ground") && hasUmbrella)
+        {
+            hasUmbrella = false;
+
+            if (currentUmbrella != null)
+            {
+                currentUmbrella.transform.SetParent(null);
+                Destroy(currentUmbrella); // oder: currentUmbrella.SetActive(false);
+                currentUmbrella = null;
+            }
+
+            rb.gravityScale = 3f; // Urspr�ngliche Schwerkraft wiederherstellen
+            UnityEngine.Debug.Log("Regenschirm entfernt beim Bodenkontakt.");
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("bridge"))
+        {
+            transform.SetParent(null);
+        }
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("coin"))
+        {
+            coinCount++;
+            UpdateCoinUI();
+            Destroy(collision.gameObject);
+        }
+        if (collision.CompareTag("water"))
+        {
+            waterTriggerCount++;
+        }
+        if (collision.CompareTag("Spike"))
+        {
+            LoseLife();
+        }
+        if (collision.CompareTag("key"))
+        {
+            KeyFollower key = collision.GetComponent<KeyFollower>();
+            if (key != null)
+            {
+                key.Collect(transform);
+            }
+        }
+
+
+        if (collision.CompareTag("umbrella") && !hasUmbrella)
+        {
+
+            hasUmbrella = true;
+            currentUmbrella = collision.gameObject;
+
+            // Regenschirm an Kopf heften
+            currentUmbrella.transform.SetParent(umbrellaAttachPoint);
+            currentUmbrella.transform.localPosition = Vector3.zero;
+
+            // Gravitation verringern
+            rb.gravityScale = 0.3f;
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, -1f);
+
+        }
+
+
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("water"))
+        {
+            waterTriggerCount--;
+            if (waterTriggerCount < 0) waterTriggerCount = 0;
+        }
+    }
+
+    private void UpdateCoinUI()
+    {
+        if (coinText != null)
+        {
+            coinText.text = ": " + coinCount.ToString();
+        }
+    }
+
     private void UpdateLifeUI()
     {
         if (lifeText != null)
@@ -136,69 +243,6 @@ public class PlayerMovement : MonoBehaviour
             key.ResetKey();
         }
 
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.collider.CompareTag("ground"))
-        {
-            isGrounded = true;
-        }
-        if (collision.collider.CompareTag("bridge"))
-        {
-            transform.SetParent(collision.transform);
-        }
-    }
-   
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("coin"))
-        {
-            coinCount++;
-            UpdateCoinUI();
-            Destroy(collision.gameObject);
-        }
-        if (collision.CompareTag("water"))
-        {
-            waterTriggerCount++;
-        }
-        if (collision.CompareTag("Spike"))
-        {
-            LoseLife();
-        }
-        if (collision.CompareTag("key"))
-        {
-            KeyFollower key = collision.GetComponent<KeyFollower>();
-            if (key != null)
-            {
-                key.Collect(transform);
-            }
-        }
-
-    }
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.collider.CompareTag("bridge"))
-        {
-            transform.SetParent(null); 
-        }
-  
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("water"))
-        {
-            waterTriggerCount--;
-            if (waterTriggerCount < 0) waterTriggerCount = 0;
-        }
-    }
-
-    private void UpdateCoinUI()
-    {
-        if (coinText != null)
-        {
-            coinText.text = ": " + coinCount.ToString();
-        }
     }
 
 
