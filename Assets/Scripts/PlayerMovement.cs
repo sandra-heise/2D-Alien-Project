@@ -196,11 +196,12 @@ public class PlayerMovement : MonoBehaviour
 
         if (lives > 0)
         {
-            transform.position = startPosition;
+            transform.position = CheckpointManager.currentCheckpointPosition;
             rb.linearVelocity = Vector2.zero;
         }
         else
         {
+            CheckpointManager.ResetCheckpoints();
             SceneManager.LoadScene("GameOver");
         }
 

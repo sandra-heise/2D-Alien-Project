@@ -13294,9 +13294,10 @@ GameObject:
   m_Component:
   - component: {fileID: 396246036}
   - component: {fileID: 396246037}
+  - component: {fileID: 396246038}
   m_Layer: 0
-  m_Name: flagRedHanging
-  m_TagString: Untagged
+  m_Name: Checkpoint2
+  m_TagString: Checkpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13360,7 +13361,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: dc6d28350cd939540aa4876badc706fd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8f7fe610582015748bbd86c927c93d22, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -13371,6 +13372,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &396246038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 396246035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 496ca42d0c9ea22458ad30b6c957dec6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &396976832
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35875,13 +35888,13 @@ Transform:
   - {fileID: 2105406312}
   - {fileID: 1898035176}
   - {fileID: 1584992185}
+  - {fileID: 396246036}
   - {fileID: 2136836648}
   - {fileID: 2136002430859717390}
   - {fileID: 410129229}
   - {fileID: 1843020725}
   - {fileID: 1463960956}
   - {fileID: 1852267452}
-  - {fileID: 396246036}
   - {fileID: 2133002656}
   - {fileID: 2123083109}
   m_Father: {fileID: 0}
@@ -50912,9 +50925,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1584992185}
   - component: {fileID: 1584992186}
+  - component: {fileID: 1584992187}
   m_Layer: 0
-  m_Name: flagBlueHanging
-  m_TagString: Untagged
+  m_Name: Checkpoint1
+  m_TagString: Checkpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50928,7 +50942,7 @@ Transform:
   m_GameObject: {fileID: 1584992184}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.85, y: 0.18497038, z: -0.020751268}
+  m_LocalPosition: {x: 12.73, y: -1.63, z: -0.020751268}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -50978,7 +50992,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 480a7c52ad35a7d43be1c0a76a30c755, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8f7fe610582015748bbd86c927c93d22, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -50989,6 +51003,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1584992187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584992184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 496ca42d0c9ea22458ad30b6c957dec6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1586424946
 GameObject:
   m_ObjectHideFlags: 0
@@ -62130,7 +62156,7 @@ GameObject:
   - component: {fileID: 1898035176}
   - component: {fileID: 1898035177}
   m_Layer: 0
-  m_Name: flagGreen
+  m_Name: StartPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67595,6 +67621,52 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6142868151377464433, guid: e44e90ec2ab2b584f91601ce748297f2, type: 3}
   m_PrefabInstance: {fileID: 1616328142}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2108148356
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2108148357}
+  - component: {fileID: 2108148358}
+  m_Layer: 0
+  m_Name: CheckpointManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2108148357
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2108148356}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.8261762, y: -1.1982555, z: 0.020751268}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2108148358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2108148356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eec16eb3896450b4f9068718f13fb93e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeFlag: {fileID: 21300000, guid: 7d7acc74b5882b3488e814c36ec20e13, type: 3}
+  inactiveFlag: {fileID: 21300000, guid: 8f7fe610582015748bbd86c927c93d22, type: 3}
 --- !u!1 &2109174335
 GameObject:
   m_ObjectHideFlags: 0
@@ -69956,6 +70028,7 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 619394802}
   - {fileID: 2103360561}
+  - {fileID: 2108148357}
   - {fileID: 1045084600}
   - {fileID: 601589101}
   - {fileID: 2132190022}
