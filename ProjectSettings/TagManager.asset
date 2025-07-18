@@ -23,6 +23,7 @@ TagManager:
   - umbrella
   - lava
   - Checkpoint
+  - Ladder
   layers:
   - Default
   - TransparentFX
