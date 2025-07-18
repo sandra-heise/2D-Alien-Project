@@ -6,11 +6,13 @@ public class PlayerClimb : MonoBehaviour
     private bool isClimbing = false;
     private float climbSpeed = 3f;
     private float normalGravity;
+    private Animator animator;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         normalGravity = rb.gravityScale;
+        animator = GetComponent<Animator>();
     }
 
     void Update()
@@ -29,6 +31,7 @@ public class PlayerClimb : MonoBehaviour
     {
         if (other.CompareTag("Ladder"))
         {
+            animator.SetBool("isClimbing", true);
             isClimbing = true;
         }
     }
@@ -37,6 +40,7 @@ public class PlayerClimb : MonoBehaviour
     {
         if (other.CompareTag("Ladder"))
         {
+            animator.SetBool("isClimbing", false);
             isClimbing = false;
         }
     }
