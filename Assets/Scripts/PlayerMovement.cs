@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
 
     private int lives = 3;
     private int coinCount = 0;
-    private Vector2 startPosition = new Vector2(-8f, 0f);
+    private Vector2 startPosition = new Vector2(35f, 10f);//new Vector2(-8f, 0f);
     private int waterTriggerCount = 0;
     private bool isInWater => waterTriggerCount > 0;
 
@@ -119,13 +119,13 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (collision.collider.CompareTag("bridge"))
+        if (collision.collider.CompareTag("bridge") || collision.collider.CompareTag("MovingPlatform"))
             transform.SetParent(collision.transform);
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("bridge"))
+        if (collision.collider.CompareTag("bridge") || collision.collider.CompareTag("MovingPlatform"))
             transform.SetParent(null);
     }
 

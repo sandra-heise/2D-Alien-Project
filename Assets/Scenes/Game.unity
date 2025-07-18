@@ -8013,7 +8013,7 @@ GameObject:
   - component: {fileID: 235054920}
   - component: {fileID: 235054921}
   m_Layer: 0
-  m_Name: ropeAttached
+  m_Name: leftPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55781,7 +55781,7 @@ GameObject:
   - component: {fileID: 1727739697}
   - component: {fileID: 1727739698}
   m_Layer: 0
-  m_Name: ropeAttached (1)
+  m_Name: rightPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56906,6 +56906,7 @@ GameObject:
   - component: {fileID: 1755682295}
   - component: {fileID: 1755682296}
   - component: {fileID: 1755682297}
+  - component: {fileID: 1755682298}
   m_Layer: 0
   m_Name: platformIndustrial_085_0
   m_TagString: ground
@@ -56922,7 +56923,7 @@ Transform:
   m_GameObject: {fileID: 1755682294}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 25.43, y: 5.097, z: -0.01}
+  m_LocalPosition: {x: 25.43, y: 5.097, z: -0.1}
   m_LocalScale: {x: 0.2593872, y: 1.0669198, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -57029,6 +57030,21 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.02, y: 1.4}
   m_EdgeRadius: 0
+--- !u!114 &1755682298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1755682294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 321efb48992e00c4d9d1c522f642dc05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointA: {fileID: 235054920}
+  pointB: {fileID: 1727739697}
+  moveSpeed: 0.5
 --- !u!1 &1757847889
 GameObject:
   m_ObjectHideFlags: 0
