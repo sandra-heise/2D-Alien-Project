@@ -2165,7 +2165,7 @@ GameObject:
   - component: {fileID: 77941142}
   - component: {fileID: 77941143}
   m_Layer: 0
-  m_Name: ropeAttached (1)
+  m_Name: rightPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3956,7 +3956,7 @@ Transform:
   m_GameObject: {fileID: 138075910}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 19.0099, y: 6.560712, z: -0.9377964}
+  m_LocalPosition: {x: 18.922298, y: 5.5407114, z: -0.9377964}
   m_LocalScale: {x: 0.8173751, y: 0.48784998, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8318,7 +8318,7 @@ Transform:
   m_GameObject: {fileID: 250405750}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 17.8867, y: 6.8491125, z: -0.9377964}
+  m_LocalPosition: {x: 17.799099, y: 5.829112, z: -0.9377964}
   m_LocalScale: {x: 0.8173751, y: 0.48784998, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8997,9 +8997,10 @@ GameObject:
   - component: {fileID: 260910714}
   - component: {fileID: 260910715}
   - component: {fileID: 260910716}
+  - component: {fileID: 260910717}
   m_Layer: 0
   m_Name: platformIndustrial_085_0
-  m_TagString: ground
+  m_TagString: MovingPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9120,6 +9121,21 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.02, y: 1.4}
   m_EdgeRadius: 0
+--- !u!114 &260910717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 260910713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 321efb48992e00c4d9d1c522f642dc05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointA: {fileID: 1790342657}
+  pointB: {fileID: 1634277564}
+  moveSpeed: 0.5
 --- !u!1001 &262547320
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10509,7 +10525,7 @@ Transform:
   m_GameObject: {fileID: 300308150}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 20.0728, y: 6.8491125, z: -0.9377964}
+  m_LocalPosition: {x: 19.985199, y: 5.829112, z: -0.9377964}
   m_LocalScale: {x: 0.8173751, y: 0.48784998, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13309,7 +13325,7 @@ GameObject:
   - component: {fileID: 392103998}
   - component: {fileID: 392103999}
   m_Layer: 0
-  m_Name: ropeAttached (1)
+  m_Name: rightPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17611,9 +17627,10 @@ GameObject:
   - component: {fileID: 493238384}
   - component: {fileID: 493238385}
   - component: {fileID: 493238386}
+  - component: {fileID: 493238387}
   m_Layer: 0
   m_Name: platformIndustrial_085_0
-  m_TagString: ground
+  m_TagString: MovingPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17734,6 +17751,21 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.02, y: 1.4}
   m_EdgeRadius: 0
+--- !u!114 &493238387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493238383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 321efb48992e00c4d9d1c522f642dc05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointA: {fileID: 2130925739}
+  pointB: {fileID: 716361929}
+  moveSpeed: 0.5
 --- !u!1 &494419089
 GameObject:
   m_ObjectHideFlags: 0
@@ -26408,7 +26440,7 @@ GameObject:
   - component: {fileID: 716361929}
   - component: {fileID: 716361930}
   m_Layer: 0
-  m_Name: ropeAttached (1)
+  m_Name: rightPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36903,7 +36935,7 @@ GameObject:
   - component: {fileID: 1098084305}
   - component: {fileID: 1098084306}
   m_Layer: 0
-  m_Name: ropeAttached (1)
+  m_Name: rightPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38086,9 +38118,10 @@ GameObject:
   - component: {fileID: 1131591486}
   - component: {fileID: 1131591487}
   - component: {fileID: 1131591488}
+  - component: {fileID: 1131591489}
   m_Layer: 0
   m_Name: platformIndustrial_085_0
-  m_TagString: ground
+  m_TagString: MovingPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38209,6 +38242,21 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.02, y: 1.4}
   m_EdgeRadius: 0
+--- !u!114 &1131591489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1131591485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 321efb48992e00c4d9d1c522f642dc05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointA: {fileID: 1854443064}
+  pointB: {fileID: 77941142}
+  moveSpeed: 0.5
 --- !u!1 &1133906205
 GameObject:
   m_ObjectHideFlags: 0
@@ -38220,9 +38268,10 @@ GameObject:
   - component: {fileID: 1133906206}
   - component: {fileID: 1133906207}
   - component: {fileID: 1133906208}
+  - component: {fileID: 1133906209}
   m_Layer: 0
   m_Name: platformIndustrial_085_0
-  m_TagString: ground
+  m_TagString: MovingPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38343,6 +38392,21 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.02, y: 1.4}
   m_EdgeRadius: 0
+--- !u!114 &1133906209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133906205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 321efb48992e00c4d9d1c522f642dc05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointA: {fileID: 1981536880}
+  pointB: {fileID: 1098084305}
+  moveSpeed: 0.5
 --- !u!1 &1137356691
 GameObject:
   m_ObjectHideFlags: 0
@@ -52640,7 +52704,7 @@ GameObject:
   - component: {fileID: 1634277564}
   - component: {fileID: 1634277565}
   m_Layer: 0
-  m_Name: ropeAttached (1)
+  m_Name: rightPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53465,7 +53529,7 @@ Transform:
   m_GameObject: {fileID: 1659982675}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 20.26, y: 17.056, z: 0}
+  m_LocalPosition: {x: 20.1724, y: 16.036, z: 0}
   m_LocalScale: {x: 1, y: 1.1086371, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -53669,11 +53733,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3118246784726423660, guid: b7790e05b69350a4699e12f7fb915439, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 34.78283
+      value: 34.69523
       objectReference: {fileID: 0}
     - target: {fileID: 3118246784726423660, guid: b7790e05b69350a4699e12f7fb915439, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 19.06176
+      value: 18.04176
       objectReference: {fileID: 0}
     - target: {fileID: 3118246784726423660, guid: b7790e05b69350a4699e12f7fb915439, type: 3}
       propertyPath: m_LocalPosition.z
@@ -55544,11 +55608,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3118246784726423660, guid: b7790e05b69350a4699e12f7fb915439, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 33.657547
+      value: 33.569946
       objectReference: {fileID: 0}
     - target: {fileID: 3118246784726423660, guid: b7790e05b69350a4699e12f7fb915439, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 19.07
+      value: 18.05
       objectReference: {fileID: 0}
     - target: {fileID: 3118246784726423660, guid: b7790e05b69350a4699e12f7fb915439, type: 3}
       propertyPath: m_LocalPosition.z
@@ -56909,7 +56973,7 @@ GameObject:
   - component: {fileID: 1755682298}
   m_Layer: 0
   m_Name: platformIndustrial_085_0
-  m_TagString: ground
+  m_TagString: MovingPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58557,7 +58621,7 @@ GameObject:
   - component: {fileID: 1790342657}
   - component: {fileID: 1790342658}
   m_Layer: 0
-  m_Name: ropeAttached
+  m_Name: leftPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59636,9 +59700,10 @@ GameObject:
   - component: {fileID: 1815175816}
   - component: {fileID: 1815175817}
   - component: {fileID: 1815175818}
+  - component: {fileID: 1815175819}
   m_Layer: 0
   m_Name: platformIndustrial_085_0
-  m_TagString: ground
+  m_TagString: MovingPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -59759,6 +59824,21 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.02, y: 1.4}
   m_EdgeRadius: 0
+--- !u!114 &1815175819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1815175815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 321efb48992e00c4d9d1c522f642dc05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pointA: {fileID: 1851771004}
+  pointB: {fileID: 392103998}
+  moveSpeed: 0.5
 --- !u!1 &1816348432
 GameObject:
   m_ObjectHideFlags: 0
@@ -59943,11 +60023,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3118246784726423660, guid: b7790e05b69350a4699e12f7fb915439, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 32.5976
+      value: 32.51
       objectReference: {fileID: 0}
     - target: {fileID: 3118246784726423660, guid: b7790e05b69350a4699e12f7fb915439, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 19.07
+      value: 18.05
       objectReference: {fileID: 0}
     - target: {fileID: 3118246784726423660, guid: b7790e05b69350a4699e12f7fb915439, type: 3}
       propertyPath: m_LocalPosition.z
@@ -61069,7 +61149,7 @@ GameObject:
   - component: {fileID: 1851771004}
   - component: {fileID: 1851771005}
   m_Layer: 0
-  m_Name: ropeAttached
+  m_Name: leftPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61245,7 +61325,7 @@ GameObject:
   - component: {fileID: 1854443064}
   - component: {fileID: 1854443065}
   m_Layer: 0
-  m_Name: ropeAttached
+  m_Name: leftPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64503,7 +64583,7 @@ GameObject:
   - component: {fileID: 1981536880}
   - component: {fileID: 1981536881}
   m_Layer: 0
-  m_Name: ropeAttached
+  m_Name: leftPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -65653,7 +65733,7 @@ GameObject:
   - component: {fileID: 2010578742}
   - component: {fileID: 2010578743}
   m_Layer: 0
-  m_Name: ropeHorizontal
+  m_Name: rope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69120,7 +69200,7 @@ GameObject:
   - component: {fileID: 2130925739}
   - component: {fileID: 2130925740}
   m_Layer: 0
-  m_Name: ropeAttached
+  m_Name: leftPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

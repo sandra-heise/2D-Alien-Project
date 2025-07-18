@@ -24,6 +24,7 @@ TagManager:
   - lava
   - Checkpoint
   - Ladder
+  - MovingPlatform
   layers:
   - Default
   - TransparentFX
