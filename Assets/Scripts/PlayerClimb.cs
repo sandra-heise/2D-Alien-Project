@@ -20,21 +20,8 @@ public class PlayerClimb : MonoBehaviour
 
         if (isClimbing)
         {
+            rb.linearVelocity = new Vector2(horizontal * climbSpeed, vertical * climbSpeed);
             rb.gravityScale = 0f;
-
-            if (vertical != 0 || horizontal != 0)
-            {
-                rb.linearVelocity = new Vector2(horizontal * climbSpeed, vertical * climbSpeed);
-            }
-            else
-            {
-                // Stillstand erzwingen
-                rb.linearVelocity = Vector2.zero;
-            }
-        }
-        else
-        {
-            rb.gravityScale = normalGravity;
         }
     }
 
