@@ -14,13 +14,16 @@ public class PlayerMovement : MonoBehaviour
     private PlayerPowerup powerup;
     private PlayerHealth playerHealth;
     private GameObject currentUmbrella;
+    private MovingPlatform currentMovingPlatform;
+    private BridgeMover currentBridgeMover;
+
 
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
     private bool isGrounded;
     private bool hasUmbrella = false;   
     private int coinCount = 0;
-    private Vector2 startPosition = new Vector3(14f, 0f, -0.1f);//new Vector2(-8f, 0f);
+    private Vector2 startPosition = new Vector2(-8f, 0f);
     private int waterTriggerCount = 0;
     private bool IsInWater => waterTriggerCount > 0;
     
@@ -51,6 +54,15 @@ public class PlayerMovement : MonoBehaviour
         HandleMovement(moveInput);
         HandleAnimation(moveInput);
         HandleDirection(moveInput);
+        if (currentMovingPlatform != null)
+        {
+            transform.position += currentMovingPlatform.PlatformVelocity;
+        }
+
+        if (currentBridgeMover != null)
+        {
+            transform.position += currentBridgeMover.PlatformVelocity;
+        }
     }
 
     private void HandleMovement(float moveInput)
@@ -114,14 +126,17 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (collision.collider.CompareTag("bridge") || collision.collider.CompareTag("MovingPlatform"))
-            transform.SetParent(collision.transform);
+        if (collision.collider.CompareTag("MovingPlatform"))
+        {
+            currentMovingPlatform = collision.collider.GetComponent<MovingPlatform>();
+            UnityEngine.Debug.Log("On MovingPlatform entered");
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("bridge") || collision.collider.CompareTag("MovingPlatform"))
-            transform.SetParent(null);
+        if (collision.collider.CompareTag("MovingPlatform"))
+            currentMovingPlatform = null;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -164,6 +179,15 @@ public class PlayerMovement : MonoBehaviour
                     rb.linearVelocity = new Vector2(rb.linearVelocity.x, -1f);
                 }
                 break;
+
+            case "BridgeTrigger":
+                BridgeTrigger trigger = collision.GetComponent<BridgeTrigger>();
+                if (trigger != null)
+                {
+                    currentBridgeMover = trigger.bridgeMover;
+                    UnityEngine.Debug.Log("Entered BridgeTrigger");
+                }
+                break;
         }
     }
 
@@ -172,6 +196,10 @@ public class PlayerMovement : MonoBehaviour
         if (collision.CompareTag("water"))
         {
             waterTriggerCount = Mathf.Max(0, waterTriggerCount - 1);
+        }
+        if (collision.CompareTag("BridgeTrigger"))
+        {
+            currentBridgeMover = null;
         }
     }
 

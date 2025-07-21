@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class PlatformBetweenPoints : MonoBehaviour
+public class MovingPlatform : MonoBehaviour
 {
     public Transform pointA;
     public Transform pointB;
@@ -8,9 +8,13 @@ public class PlatformBetweenPoints : MonoBehaviour
 
     private Vector3 target;
     private float offset;
+    private Vector3 previousPosition;
+    public Vector3 PlatformVelocity { get; private set; }
+
 
     void Start()
     {
+        previousPosition = transform.position;
         if (pointA == null || pointB == null)
         {
             Debug.LogError("Fehlende Punkte für Plattformbewegung!");
@@ -19,7 +23,7 @@ public class PlatformBetweenPoints : MonoBehaviour
         }
 
         offset = Random.Range(0f, 1f);
-        // Startposition bestimmen (z. B. näher an pointA oder pointB)
+        
         float startLerp = Mathf.PingPong(Time.time * moveSpeed + offset, 1f);
         transform.position = Vector3.Lerp(pointA.position, pointB.position, startLerp);
     }
@@ -28,5 +32,10 @@ public class PlatformBetweenPoints : MonoBehaviour
     {
         float t = Mathf.PingPong(Time.time * moveSpeed + offset, 1f);
         transform.position = Vector3.Lerp(pointA.position, pointB.position, t);
+    }
+    void LateUpdate()
+    {
+        PlatformVelocity = transform.position - previousPosition;
+        previousPosition = transform.position;
     }
 }

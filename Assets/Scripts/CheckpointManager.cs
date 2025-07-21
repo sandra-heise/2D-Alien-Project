@@ -22,7 +22,6 @@ public class CheckpointManager : MonoBehaviour
         currentCheckpointPosition = checkpointTransform.position;
         checkpointReached = true;
 
-        // Alle Checkpoints finden und Grafiken updaten
         foreach (GameObject flag in GameObject.FindGameObjectsWithTag("Checkpoint"))
         {
             SpriteRenderer sr = flag.GetComponent<SpriteRenderer>();
