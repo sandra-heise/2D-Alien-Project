@@ -109,7 +109,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("ground"))
+        if (collision.collider.CompareTag("ground") || collision.collider.CompareTag("MovingPlatform")
+        || collision.collider.CompareTag("bridge")) 
         {
             isGrounded = true;
 
@@ -129,14 +130,21 @@ public class PlayerMovement : MonoBehaviour
         if (collision.collider.CompareTag("MovingPlatform"))
         {
             currentMovingPlatform = collision.collider.GetComponent<MovingPlatform>();
-            UnityEngine.Debug.Log("On MovingPlatform entered");
         }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.collider.CompareTag("MovingPlatform"))
+        {
             currentMovingPlatform = null;
+            isGrounded = false;
+        }
+
+        if (collision.collider.CompareTag("bridge"))
+        {
+            isGrounded = false;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
