@@ -9,6 +9,7 @@ public class PlayerHealth : MonoBehaviour
     public TextMeshProUGUI lifeText;
     private Rigidbody2D rb;
     private PlayerPowerup powerup;
+    private bool isDying = false;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -17,6 +18,8 @@ public class PlayerHealth : MonoBehaviour
 
     public IEnumerator LoseLife()
     {
+        if (isDying) yield break;
+        isDying = true;
         rb.linearVelocity = Vector2.zero;
         GetComponent<Collider2D>().enabled = false; 
 
@@ -47,6 +50,8 @@ public class PlayerHealth : MonoBehaviour
         {
             key.ResetKey();
         }
+        yield return new WaitForSeconds(0.2f); // kurzer Schutzzeitraum
+        isDying = false; // wieder bereit für neues Leben verlieren
     }
     public void UpdateLifeUI()
     {
