@@ -5,36 +5,31 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [Header("Movement")]
-    public float moveSpeed = 5f;
-    public float jumpForce = 10f;
+    
 
-    [Header("UI")]
-    public TextMeshProUGUI lifeText;
     public TextMeshProUGUI coinText;
-
-    [Header("Umbrella")]
     public Transform umbrellaAttachPoint;
-
     private Rigidbody2D rb;
     private Animator animator;
     private PlayerPowerup powerup;
-
-    private bool isGrounded;
-    private bool hasUmbrella = false;
+    private PlayerHealth playerHealth;
     private GameObject currentUmbrella;
 
-    private int lives = 3;
+    public float moveSpeed = 5f;
+    public float jumpForce = 10f;
+    private bool isGrounded;
+    private bool hasUmbrella = false;   
     private int coinCount = 0;
     private Vector2 startPosition = new Vector3(14f, 0f, -0.1f);//new Vector2(-8f, 0f);
     private int waterTriggerCount = 0;
-    private bool isInWater => waterTriggerCount > 0;
-
+    private bool IsInWater => waterTriggerCount > 0;
+    
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         powerup = GetComponent<PlayerPowerup>();
         animator = GetComponent<Animator>();
+        playerHealth = GetComponent<PlayerHealth>();
         isGrounded = false;
         transform.position = startPosition;
         UpdateCoinUI();
@@ -44,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (transform.position.y < -30f)
         {
-            LoseLife();
+            playerHealth.LoseLife();
             return;
         }
 
@@ -60,7 +55,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleMovement(float moveInput)
     {
-        if (isInWater && powerup?.IsPowered == true)
+        if (IsInWater && powerup?.IsPowered == true)
         {
             float verticalInput = Input.GetAxisRaw("Vertical");
             rb.gravityScale = 0f;
@@ -89,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("isWalking", Mathf.Abs(moveInput) > 0f);
         bool isPowered = powerup?.IsPowered == true;
         animator.SetBool("isPowered", isPowered);
-        animator.SetBool("isSwimming", isInWater && isPowered);
+        animator.SetBool("isSwimming", IsInWater && isPowered);
     }
 
     private void HandleDirection(float moveInput)
@@ -144,11 +139,11 @@ public class PlayerMovement : MonoBehaviour
                 break;
 
             case "Spike":
-                LoseLife();
+                playerHealth.LoseLife();
                 break;
 
             case "saw":
-                LoseLife();
+                playerHealth.LoseLife();
                 break;
 
             case "key":
@@ -184,37 +179,5 @@ public class PlayerMovement : MonoBehaviour
     {
         if (coinText != null)
             coinText.text = ": " + coinCount;
-    }
-
-    private void UpdateLifeUI()
-    {
-        if (lifeText != null)
-            lifeText.text = "x " + lives;
-    }
-
-    private void LoseLife()
-    {
-        lives--;
-        powerup?.CancelPowerUp();
-        UpdateLifeUI();
-
-        if (lives > 0)
-        {
-            transform.position = CheckpointManager.currentCheckpointPosition;
-            rb.linearVelocity = Vector2.zero;
-        }
-        else
-        {
-            CheckpointManager.ResetCheckpoints();
-            SceneManager.LoadScene("GameOver");
-        }
-
-        FindObjectOfType<LeverMechanism>()?.ResetMechanism();
-
-        var key = FindObjectOfType<KeyFollower>();
-        if (key?.IsCollected() == true)
-        {
-            key.ResetKey();
-        }
-    }
+    }    
 }
