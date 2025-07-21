@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int lives = 3;
+    public int lives = 5;
     public TextMeshProUGUI lifeText;
     private Rigidbody2D rb;
     private PlayerPowerup powerup;
@@ -48,7 +48,7 @@ public class PlayerHealth : MonoBehaviour
             key.ResetKey();
         }
     }
-    private void UpdateLifeUI()
+    public void UpdateLifeUI()
     {
         if (lifeText != null)
             lifeText.text = "x " + lives;

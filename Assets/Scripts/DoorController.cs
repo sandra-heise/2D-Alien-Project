@@ -19,7 +19,6 @@ public class DoorController : MonoBehaviour
 
             if (keyFollowerScript != null && keyFollowerScript.IsCollected())
             {
-                Debug.Log("Key wird deaktiviert: " + keyFollow.name);
                 keyFollow.SetActive(false);
                 OpenDoor();
             }
