@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (transform.position.y < -30f)
         {
-            playerHealth.LoseLife();
+            StartCoroutine(playerHealth.LoseLife());
             return;
         }
 
@@ -139,11 +139,11 @@ public class PlayerMovement : MonoBehaviour
                 break;
 
             case "Spike":
-                playerHealth.LoseLife();
+                StartCoroutine(playerHealth.LoseLife());
                 break;
 
             case "saw":
-                playerHealth.LoseLife();
+                StartCoroutine(playerHealth.LoseLife());
                 break;
 
             case "key":

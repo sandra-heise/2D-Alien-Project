@@ -15,9 +15,16 @@ public class PlayerHealth : MonoBehaviour
         powerup = GetComponent<PlayerPowerup>();
     }
 
-    public void LoseLife()
+    public IEnumerator LoseLife()
     {
-        Debug.Log("Lose Life");
+        rb.linearVelocity = Vector2.zero;
+        GetComponent<Collider2D>().enabled = false; 
+
+        // BLINKEN ALS STERBEANIMATION
+        yield return StartCoroutine(FlashRoutine(1f)); 
+
+        GetComponent<Collider2D>().enabled = true;
+
         lives--;
         powerup?.CancelPowerUp();
         UpdateLifeUI();
@@ -46,4 +53,22 @@ public class PlayerHealth : MonoBehaviour
         if (lifeText != null)
             lifeText.text = "x " + lives;
     }
+    private IEnumerator FlashRoutine(float duration)
+    {
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        if (sr == null) yield break;
+
+        float elapsed = 0f;
+        float flashSpeed = 0.1f;
+
+        while (elapsed < duration)
+        {
+            sr.enabled = false;
+            yield return new WaitForSeconds(flashSpeed);
+            sr.enabled = true;
+            yield return new WaitForSeconds(flashSpeed);
+            elapsed += flashSpeed * 2f;
+        }
+    }
+
 }
