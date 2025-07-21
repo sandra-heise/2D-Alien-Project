@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerClimb : MonoBehaviour
 {
@@ -45,7 +45,15 @@ public class PlayerClimb : MonoBehaviour
             isClimbing = true;
         }
     }
-
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("Ladder") && !isClimbing && Input.GetAxisRaw("Vertical") != 0)
+        {
+            // Spieler kommt z. B. von oben zurück in die Leiter
+            animator.SetBool("isClimbing", true);
+            isClimbing = true;
+        }
+    }
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Ladder"))
