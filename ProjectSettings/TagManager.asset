@@ -25,6 +25,7 @@ TagManager:
   - Checkpoint
   - Ladder
   - MovingPlatform
+  - BridgeTrigger
   layers:
   - Default
   - TransparentFX
