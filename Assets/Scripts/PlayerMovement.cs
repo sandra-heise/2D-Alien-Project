@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
 
     private int lives = 3;
     private int coinCount = 0;
-    private Vector2 startPosition = new Vector2(36f, 16f);//new Vector2(-8f, 0f);
+    private Vector2 startPosition = new Vector3(14f, 0f, -0.1f);//new Vector2(-8f, 0f);
     private int waterTriggerCount = 0;
     private bool isInWater => waterTriggerCount > 0;
 
@@ -144,6 +144,10 @@ public class PlayerMovement : MonoBehaviour
                 break;
 
             case "Spike":
+                LoseLife();
+                break;
+
+            case "saw":
                 LoseLife();
                 break;
 
