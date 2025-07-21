@@ -7,6 +7,9 @@ public class PlayerClimb : MonoBehaviour
     private float climbSpeed = 3f;
     private float normalGravity;
     private Animator animator;
+    public float jumpForce = 10f;
+
+
 
     void Start()
     {
@@ -18,15 +21,22 @@ public class PlayerClimb : MonoBehaviour
     void Update()
     {
         float vertical = Input.GetAxisRaw("Vertical");
-        float horizontal = Input.GetAxisRaw("Horizontal");
 
         if (isClimbing)
         {
-            rb.linearVelocity = new Vector2(horizontal * climbSpeed, vertical * climbSpeed);
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, vertical * climbSpeed);
             rb.gravityScale = 0f;
+
+            // Beim Springen klettern abbrechen
+            if (Input.GetButtonDown("Jump"))
+            {
+                isClimbing = false;
+                rb.gravityScale = normalGravity;
+                animator.SetBool("isClimbing", false);
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce); // ? Aktiver Sprung nach oben
+            }
         }
     }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Ladder"))
@@ -42,6 +52,7 @@ public class PlayerClimb : MonoBehaviour
         {
             animator.SetBool("isClimbing", false);
             isClimbing = false;
+            rb.gravityScale = normalGravity;
         }
     }
 }
