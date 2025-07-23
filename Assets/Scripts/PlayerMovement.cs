@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isGrounded;
     private bool hasUmbrella = false;   
     private int coinCount = 0;
-    private Vector2 startPosition = new Vector2(-8f, 0f);//new Vector2(14f, 0f); new Vector2(58f, 0f); 
+    private Vector2 startPosition = new Vector2(-8f, 0f);//new Vector2(14f, 0f);  new Vector2(58f, 0f); /
     private int waterTriggerCount = 0;
     private bool IsInWater => waterTriggerCount > 0;
     
@@ -102,7 +102,6 @@ public class PlayerMovement : MonoBehaviour
     {
         animator.SetBool("isWalking", Mathf.Abs(moveInput) > 0f);
         bool isPowered = powerup?.CanSwim == true;
-        animator.SetBool("isPowered", isPowered);
         animator.SetBool("isSwimming", IsInWater && isPowered);
     }
 

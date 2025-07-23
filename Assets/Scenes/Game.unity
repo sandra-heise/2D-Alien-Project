@@ -5139,7 +5139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerUpType: 0
-  respawnTime: 60
+  powerUpDuration: 45
 --- !u!61 &159705912
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -26092,8 +26092,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278848011
-  m_fontColor: {r: 0.04150939, g: 0.040647876, b: 0.040647876, a: 1}
+    rgba: 4283387893
+  m_fontColor: {r: 0.9622642, g: 0.31046635, b: 0.31046635, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -36333,6 +36333,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 159705909}
+  - {fileID: 1852267452}
   - {fileID: 1734275870}
   - {fileID: 2105406312}
   - {fileID: 1898035176}
@@ -36341,7 +36342,6 @@ Transform:
   - {fileID: 2123083109}
   - {fileID: 2136002430859717390}
   - {fileID: 410129229}
-  - {fileID: 1852267452}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1058606134
@@ -61734,7 +61734,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerUpType: 1
-  respawnTime: 60
+  powerUpDuration: 45
 --- !u!60 &1852267455
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -66545,6 +66545,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eafc16a2771dc4408f49e3e21ced609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeText: {fileID: 709084212}
+  defaultSprite: {fileID: 21300000, guid: b43d02a0f90c3fc41be5a1690a6543b2, type: 3}
+  blueSprite: {fileID: 21300000, guid: 5a0a26a5c79031e42a909809038575c2, type: 3}
+  redSprite: {fileID: 21300000, guid: 20ce01aaecd55e545b4b2bd1565a36ff, type: 3}
 --- !u!95 &2014646082
 Animator:
   serializedVersion: 7

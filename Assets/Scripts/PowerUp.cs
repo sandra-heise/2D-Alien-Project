@@ -9,14 +9,20 @@ public class PlayerPowerup : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Coroutine currentPowerupRoutine;
     public TMP_Text timeText;
+    public Sprite defaultSprite; // grün
+    public Sprite blueSprite;    // für Schwimmen
+    public Sprite redSprite;     // für hohen Sprung
+    private Animator animator;
 
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
         if (timeText != null)
         {
             timeText.gameObject.SetActive(false);
         }
+        spriteRenderer.sprite = defaultSprite;
     }
 
     public void ActivatePowerUp(PowerUpType type, float duration)
@@ -30,12 +36,20 @@ public class PlayerPowerup : MonoBehaviour
         {
             case PowerUpType.Swim:
                 CanSwim = true;
-                spriteRenderer.color = Color.blue;
+                spriteRenderer.sprite = blueSprite;
+                if (animator != null)
+                {
+                    animator.SetBool("isBlue", true);
+                }
                 break;
 
             case PowerUpType.HighJump:
                 CanHighJump = true;
-                spriteRenderer.color = Color.red;
+                spriteRenderer.sprite = redSprite;
+                if (animator != null)
+                {
+                    animator.SetBool("isRed", true);
+                }
                 break;
         }
         currentPowerupRoutine = StartCoroutine(PowerUpTimer(type, duration));
@@ -62,16 +76,22 @@ public class PlayerPowerup : MonoBehaviour
         }
 
         CancelPowerUp();
-
-        if (timeText != null)
-        {
-            timeText.gameObject.SetActive(false);
-        }
     }
     public void CancelPowerUp()
     {
         CanSwim = false;
         CanHighJump = false;
-        spriteRenderer.color = Color.green;
+        spriteRenderer.sprite = defaultSprite;
+
+        if (animator != null)
+        {
+            animator.SetBool("isBlue", false);
+            animator.SetBool("isRed", false);
+        }
+
+        if (timeText != null)
+        {
+            timeText.gameObject.SetActive(false);
+        }
     }
  }
