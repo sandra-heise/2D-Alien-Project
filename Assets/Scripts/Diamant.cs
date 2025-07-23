@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class Diamond : MonoBehaviour
 {
-    public float respawnTime = 60f; // wie lange der Diamant wegbleibt
+    public PowerUpType powerUpType;  // Hier den Typ im Inspector einstellen
+    public float powerUpDuration = 45f;
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -11,11 +12,11 @@ public class Diamond : MonoBehaviour
             PlayerPowerup power = other.GetComponent<PlayerPowerup>();
             if (power != null)
             {
-                power.ActivatePowerUp(this); // übergeben der Referenz
+                power.ActivatePowerUp(powerUpType, powerUpDuration);  // Übergib Typ statt Referenz
             }
 
-            gameObject.SetActive(false); // statt Destroy
-            Invoke(nameof(Respawn), respawnTime);     // respawn verzögert aufrufen
+            gameObject.SetActive(false);
+            Invoke(nameof(Respawn), powerUpDuration);
         }
     }
 

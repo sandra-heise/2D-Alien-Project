@@ -1,80 +1,77 @@
-﻿using System.Collections;
+﻿using UnityEngine;
 using TMPro;
-using UnityEngine;
-using UnityEngine.UI;
-
+using System.Collections;
 public class PlayerPowerup : MonoBehaviour
 {
-    public Sprite greenSprite; // Default
-    public Sprite blueSprite;  // blue
+    public bool CanSwim { get; private set; } = false;
+    public bool CanHighJump { get; private set; } = false;
 
-    public TextMeshProUGUI timerText; 
-
-    private SpriteRenderer sr;
-    private float powerDuration = 60f;
-    public bool IsPowered = false;
-    private float currentTime;
-    private Diamond lastCollectedDiamond;
+    private SpriteRenderer spriteRenderer;
+    private Coroutine currentPowerupRoutine;
+    public TMP_Text timeText;
 
     void Start()
     {
-        sr = GetComponent<SpriteRenderer>();
-        sr.sprite = greenSprite;
-
-        if (timerText != null)
-            timerText.text = "";
-    }
-
-    void Update()
-    {
-        if (IsPowered)
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        if (timeText != null)
         {
-            currentTime -= Time.deltaTime;
-
-           if (timerText != null)
-                timerText.text = Mathf.CeilToInt(currentTime).ToString();
-
-            if (currentTime <= 0)
-            {
-                EndPowerUp();
-            }
+            timeText.gameObject.SetActive(false);
         }
     }
 
-    void EndPowerUp()
+    public void ActivatePowerUp(PowerUpType type, float duration)
     {
-        IsPowered = false;
-        sr.sprite = greenSprite;
+        if (currentPowerupRoutine != null)
+        {
+            StopCoroutine(currentPowerupRoutine);
+        }
 
-        if (timerText != null)
-            timerText.text = "";
+        switch (type)
+        {
+            case PowerUpType.Swim:
+                CanSwim = true;
+                spriteRenderer.color = Color.blue;
+                break;
+
+            case PowerUpType.HighJump:
+                CanHighJump = true;
+                spriteRenderer.color = Color.red;
+                break;
+        }
+        currentPowerupRoutine = StartCoroutine(PowerUpTimer(type, duration));
     }
 
-    public void ActivatePowerUp(Diamond diamond)
+    private IEnumerator PowerUpTimer(PowerUpType type, float duration)
     {
-        sr.sprite = blueSprite;
-        IsPowered = true;
-        currentTime = powerDuration;
-        lastCollectedDiamond = diamond;
+        float timer = duration;
 
-        if (timerText != null)
-            timerText.text = Mathf.CeilToInt(currentTime).ToString();
+        if (timeText != null)
+        {
+            timeText.gameObject.SetActive(true);
+        }
+
+        while (timer > 0f)
+        {
+            if (timeText != null)
+            {
+                timeText.text = $"{Mathf.Ceil(timer)}";
+            }
+
+            timer -= Time.deltaTime;
+            yield return null;
+        }
+
+        CancelPowerUp();
+
+        if (timeText != null)
+        {
+            timeText.gameObject.SetActive(false);
+        }
     }
-
     public void CancelPowerUp()
     {
-        IsPowered = false;
-        sr.sprite = greenSprite;
-
-        if (timerText != null)
-            timerText.text = "";
-
-        if (lastCollectedDiamond != null)
-        {
-            lastCollectedDiamond.Respawn();
-            lastCollectedDiamond = null; // einmaliger Respawn
-        }
-
+        CanSwim = false;
+        CanHighJump = false;
+        spriteRenderer.color = Color.green;
     }
-
-}
+ }

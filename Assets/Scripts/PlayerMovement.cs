@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isGrounded;
     private bool hasUmbrella = false;   
     private int coinCount = 0;
-    private Vector2 startPosition = new Vector3(78f, -9f, -0.5f);//new Vector2(58f, 0f); //new Vector2(-8f, 0f);//new Vector2(14f, 0f);
+    private Vector2 startPosition = new Vector2(-8f, 0f);//new Vector2(14f, 0f); new Vector2(58f, 0f); 
     private int waterTriggerCount = 0;
     private bool IsInWater => waterTriggerCount > 0;
     
@@ -67,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleMovement(float moveInput)
     {
-        if (IsInWater && powerup?.IsPowered == true)
+        if (IsInWater && powerup?.CanSwim == true)
         {
             float verticalInput = Input.GetAxisRaw("Vertical");
             rb.gravityScale = 0f;
@@ -85,7 +85,14 @@ public class PlayerMovement : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
             {
-                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+                float finalJumpForce = jumpForce;
+
+                if (powerup != null && powerup.CanHighJump)
+                {
+                    finalJumpForce *= 1.4f; 
+                }
+
+                rb.AddForce(Vector2.up * finalJumpForce, ForceMode2D.Impulse);
                 isGrounded = false;
             }
         }
@@ -94,7 +101,7 @@ public class PlayerMovement : MonoBehaviour
     private void HandleAnimation(float moveInput)
     {
         animator.SetBool("isWalking", Mathf.Abs(moveInput) > 0f);
-        bool isPowered = powerup?.IsPowered == true;
+        bool isPowered = powerup?.CanSwim == true;
         animator.SetBool("isPowered", isPowered);
         animator.SetBool("isSwimming", IsInWater && isPowered);
     }
