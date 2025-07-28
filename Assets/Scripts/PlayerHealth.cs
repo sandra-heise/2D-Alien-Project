@@ -16,6 +16,7 @@ public class PlayerHealth : MonoBehaviour
         powerup = GetComponent<PlayerPowerup>();
     }
 
+    [System.Obsolete]
     public IEnumerator LoseLife()
     {
         if (isDying) yield break;
@@ -31,6 +32,12 @@ public class PlayerHealth : MonoBehaviour
         lives--;
         powerup?.CancelPowerUp();
         UpdateLifeUI();
+
+        if (Diamond.lastCollectedDiamond != null)
+        {
+            Diamond.lastCollectedDiamond.Respawn();
+            Diamond.lastCollectedDiamond = null;
+        }
 
         if (lives > 0)
         {

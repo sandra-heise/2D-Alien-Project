@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class Diamond : MonoBehaviour
 {
-    public PowerUpType powerUpType;  // Hier den Typ im Inspector einstellen
+    public PowerUpType powerUpType;  
     public float powerUpDuration = 45f;
+    public static Diamond lastCollectedDiamond;
 
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -12,9 +13,10 @@ public class Diamond : MonoBehaviour
             PlayerPowerup power = other.GetComponent<PlayerPowerup>();
             if (power != null)
             {
-                power.ActivatePowerUp(powerUpType, powerUpDuration);  // Übergib Typ statt Referenz
+                power.ActivatePowerUp(powerUpType, powerUpDuration); 
             }
 
+            lastCollectedDiamond = this;
             gameObject.SetActive(false);
             Invoke(nameof(Respawn), powerUpDuration);
         }
