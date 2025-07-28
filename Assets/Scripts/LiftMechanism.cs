@@ -39,10 +39,10 @@ public class LiftMechanism : MonoBehaviour
 
     private void ToggleLever()
     {
-        isSwitched = !isSwitched;
-        spriteRenderer.sprite = isSwitched ? liftactiveSprite : liftdefaultSprite;
-
-        StartCoroutine(MoveLift(isSwitched));
+        if (isMoving) return;
+        isSwitched = true;
+        spriteRenderer.sprite = liftactiveSprite;
+        StartCoroutine(MoveLift(true)); // nur nach oben bewegen
     }
 
     private IEnumerator MoveLift(bool goingUp)
@@ -66,7 +66,24 @@ public class LiftMechanism : MonoBehaviour
         }
 
         liftPlattform.position = targetPos;
-        isMoving = false;
+
+        if (goingUp)
+        {
+            yield return new WaitForSeconds(2.5f); 
+            StartCoroutine(MoveLift(false));
+        }
+        else
+        {
+            isSwitched = false;
+            spriteRenderer.sprite = liftdefaultSprite;
+            isMoving = false;
+        }
+
+        // Wenn Rückfahrt war, wird oben nicht mehr gestoppt
+        if (!goingUp)
+        {
+            isMoving = false;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
