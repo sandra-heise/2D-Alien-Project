@@ -10,11 +10,13 @@ public class ShopUIManager : MonoBehaviour
     public Button firstSelectedButton;
     public Button greenDiamondButton;
     public Button yellowDiamondButton;
+  
     public int diamondCost = 20;
 
     public PlayerCoins playerCoins;
+    public GameObject notEnoughCoinsPanel;
+    public Button notEnoughCoinsOkButton;
 
-  
     void Update()
     {
         if (shopUI.activeSelf && Input.GetKeyDown(KeyCode.Escape))
@@ -42,6 +44,17 @@ public class ShopUIManager : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(firstSelectedButton.gameObject);
 
     }
+    private IEnumerator SelectInfoButtonNextFrame()
+    {
+        yield return null;
+
+        if (EventSystem.current != null)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(notEnoughCoinsOkButton.gameObject);
+        }
+    }
+
 
     public void CloseShop()
     {
@@ -55,12 +68,12 @@ public class ShopUIManager : MonoBehaviour
             playerCoins.SpendCoins(diamondCost);
             Debug.Log("Grüner Diamant gekauft!");
             // z. B. powerupManager.EnableInvisibility();
+            CloseShop();
         }
         else
         {
-            Debug.Log("Nicht genug Coins für grünen Diamanten.");
+            ShowNotEnoughCoinsMessage();
         }
-        CloseShop();
     }
 
     public void BuyYellowDiamond()
@@ -70,12 +83,28 @@ public class ShopUIManager : MonoBehaviour
             playerCoins.SpendCoins(diamondCost);
             Debug.Log("Gelber Diamant gekauft!");
             // z. B. powerupManager.EnableShooting();
+            CloseShop();
         }
         else
         {
-            Debug.Log("Nicht genug Coins für gelben Diamanten.");
+            ShowNotEnoughCoinsMessage();
+            
         }
-        CloseShop();
     }
+    private void ShowNotEnoughCoinsMessage()
+    {
+       
+        notEnoughCoinsPanel.SetActive(true);
+        StartCoroutine(SelectInfoButtonNextFrame());
+
+    }
+    public void CloseInfoPanel()
+    {
+        shopUI.SetActive(false);
+        notEnoughCoinsPanel.SetActive(false);
+        Time.timeScale = 1f; 
+    }
+
+
 
 }
