@@ -5,6 +5,8 @@ public class PlayerPowerup : MonoBehaviour
 {
     public bool CanSwim { get; private set; } = false;
     public bool CanHighJump { get; private set; } = false;
+    public bool IsInvisible { get; private set; } = false;
+    public bool CanShoot { get; private set; } = false;
 
     private SpriteRenderer spriteRenderer;
     private Coroutine currentPowerupRoutine;
@@ -12,6 +14,8 @@ public class PlayerPowerup : MonoBehaviour
     public Sprite defaultSprite; // grün
     public Sprite blueSprite;    // für Schwimmen
     public Sprite redSprite;     // für hohen Sprung
+    public Sprite invisibleSprite;     // für unsichtbarkeit
+    public Sprite shootSprite;     // für schiessen
     private Animator animator;
 
     void Start()
@@ -51,6 +55,24 @@ public class PlayerPowerup : MonoBehaviour
                     animator.SetBool("isRed", true);
                 }
                 break;
+
+            case PowerUpType.Invisible:
+                IsInvisible = true;
+                spriteRenderer.sprite = invisibleSprite;
+                if (animator != null)
+                {
+                    animator.SetBool("isInvisible", true);
+                }
+                break;
+
+            case PowerUpType.Shoot:
+                CanShoot = true;
+                spriteRenderer.sprite = shootSprite;
+                if (animator != null)
+                {
+                    animator.SetBool("isYellow", true);
+                }
+                break;
         }
         currentPowerupRoutine = StartCoroutine(PowerUpTimer(type, duration));
     }
@@ -81,12 +103,16 @@ public class PlayerPowerup : MonoBehaviour
     {
         CanSwim = false;
         CanHighJump = false;
+        IsInvisible = false;
+        CanShoot = false;
         spriteRenderer.sprite = defaultSprite;
 
         if (animator != null)
         {
             animator.SetBool("isBlue", false);
             animator.SetBool("isRed", false);
+            animator.SetBool("isYellow", false);
+            animator.SetBool("isInvisible", false);
         }
 
         if (timeText != null)

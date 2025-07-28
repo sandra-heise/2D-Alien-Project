@@ -156,7 +156,6 @@ public class PlayerMovement : MonoBehaviour
         switch (collision.tag)
         {
             case "coin":
-                UnityEngine.Debug.Log("Coin");
                 playerCoins.AddCoin();
                 Destroy(collision.gameObject);
                 break;

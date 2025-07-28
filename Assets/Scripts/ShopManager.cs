@@ -16,6 +16,12 @@ public class ShopUIManager : MonoBehaviour
     public PlayerCoins playerCoins;
     public GameObject notEnoughCoinsPanel;
     public Button notEnoughCoinsOkButton;
+    private PlayerPowerup playerPowerup;
+
+    void Start()
+    {
+        playerPowerup = GameObject.FindWithTag("Player").GetComponent<PlayerPowerup>();
+    }
 
     void Update()
     {
@@ -66,8 +72,7 @@ public class ShopUIManager : MonoBehaviour
         if (playerCoins.GetCoins() >= diamondCost)
         {
             playerCoins.SpendCoins(diamondCost);
-            Debug.Log("Grüner Diamant gekauft!");
-            // z. B. powerupManager.EnableInvisibility();
+            playerPowerup.ActivatePowerUp(PowerUpType.Invisible, 60f);
             CloseShop();
         }
         else
@@ -81,8 +86,7 @@ public class ShopUIManager : MonoBehaviour
         if (playerCoins.GetCoins() >= diamondCost)
         {
             playerCoins.SpendCoins(diamondCost);
-            Debug.Log("Gelber Diamant gekauft!");
-            // z. B. powerupManager.EnableShooting();
+            playerPowerup.ActivatePowerUp(PowerUpType.Shoot, 60f);
             CloseShop();
         }
         else

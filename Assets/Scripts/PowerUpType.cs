@@ -1,5 +1,7 @@
 public enum PowerUpType
 {
     Swim,
-    HighJump
+    HighJump, 
+    Invisible,
+    Shoot
 }
