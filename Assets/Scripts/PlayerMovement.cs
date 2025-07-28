@@ -5,9 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
-    
-
-    public TextMeshProUGUI coinText;
     public Transform umbrellaAttachPoint;
     private Rigidbody2D rb;
     private Animator animator;
@@ -16,14 +13,14 @@ public class PlayerMovement : MonoBehaviour
     private GameObject currentUmbrella;
     private MovingPlatform currentMovingPlatform;
     private BridgeMover currentBridgeMover;
+    private PlayerCoins playerCoins;
 
 
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
     private bool isGrounded;
-    private bool hasUmbrella = false;   
-    private int coinCount = 0;
-    private Vector2 startPosition = new Vector2(83f, 0f); // new Vector2(58f, 0f); // new Vector2(-8f, 0f);//new Vector2(14f, 0f); 
+    private bool hasUmbrella = false;
+    private Vector2 startPosition = new Vector2(83f, 0f);  //new Vector2(58f, 0f); // new Vector2(-8f, 0f);//new Vector2(14f, 0f); 
     private int waterTriggerCount = 0;
     private bool IsInWater => waterTriggerCount > 0;
     
@@ -33,9 +30,10 @@ public class PlayerMovement : MonoBehaviour
         powerup = GetComponent<PlayerPowerup>();
         animator = GetComponent<Animator>();
         playerHealth = GetComponent<PlayerHealth>();
+        playerCoins = GetComponent<PlayerCoins>();
         isGrounded = false;
         transform.position = startPosition;
-        UpdateCoinUI();
+        playerCoins.UpdateCoinUI();
     }
 
     void Update()
@@ -158,8 +156,8 @@ public class PlayerMovement : MonoBehaviour
         switch (collision.tag)
         {
             case "coin":
-                coinCount++;
-                UpdateCoinUI();
+                UnityEngine.Debug.Log("Coin");
+                playerCoins.AddCoin();
                 Destroy(collision.gameObject);
                 break;
 
@@ -222,10 +220,5 @@ public class PlayerMovement : MonoBehaviour
             currentBridgeMover = null;
         }
     }
-
-    private void UpdateCoinUI()
-    {
-        if (coinText != null)
-            coinText.text = ": " + coinCount;
-    }    
+  
 }

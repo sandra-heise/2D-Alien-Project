@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -8,6 +8,13 @@ public class ShopUIManager : MonoBehaviour
 {
     public GameObject shopUI;
     public Button firstSelectedButton;
+    public Button greenDiamondButton;
+    public Button yellowDiamondButton;
+    public int diamondCost = 20;
+
+    public PlayerCoins playerCoins;
+
+  
     void Update()
     {
         if (shopUI.activeSelf && Input.GetKeyDown(KeyCode.Escape))
@@ -41,4 +48,34 @@ public class ShopUIManager : MonoBehaviour
         shopUI.SetActive(false);
         Time.timeScale = 1f; 
     }
+    public void BuyGreenDiamond()
+    {
+        if (playerCoins.GetCoins() >= diamondCost)
+        {
+            playerCoins.SpendCoins(diamondCost);
+            Debug.Log("Grüner Diamant gekauft!");
+            // z. B. powerupManager.EnableInvisibility();
+        }
+        else
+        {
+            Debug.Log("Nicht genug Coins für grünen Diamanten.");
+        }
+        CloseShop();
+    }
+
+    public void BuyYellowDiamond()
+    {
+        if (playerCoins.GetCoins() >= diamondCost)
+        {
+            playerCoins.SpendCoins(diamondCost);
+            Debug.Log("Gelber Diamant gekauft!");
+            // z. B. powerupManager.EnableShooting();
+        }
+        else
+        {
+            Debug.Log("Nicht genug Coins für gelben Diamanten.");
+        }
+        CloseShop();
+    }
+
 }
