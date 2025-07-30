@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9119931933616426633}
   - component: {fileID: 9101760408857762431}
   - component: {fileID: 4253867355288533233}
+  - component: {fileID: -8953197893219245433}
   m_Layer: 0
   m_Name: snakeLava
   m_TagString: snakeLava
@@ -118,14 +119,14 @@ PolygonCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0}
     oldSize: {x: 0.53000003, y: 1.4747827}
     newSize: {x: 0.53000003, y: 1.4747827}
     adaptiveTilingThreshold: 0.5
@@ -148,3 +149,18 @@ PolygonCollider2D:
       - {x: 0.26500002, y: -0.44934785}
       - {x: 0.26500002, y: 0.56456524}
   m_UseDelaunayMesh: 0
+--- !u!114 &-8953197893219245433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 976081402841450656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0839ba304be43b34984d475a340b3dc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minScaleY: 1
+  maxScaleY: 2
+  speed: 2

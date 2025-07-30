@@ -172,6 +172,7 @@ public class PlayerMovement : MonoBehaviour
 
             case "Spike":
             case "lava":
+            case "snakeLava":
                 StartCoroutine(playerHealth.LoseLife());
                 break;
 
