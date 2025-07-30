@@ -24,12 +24,14 @@ public class Laser : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("trigger with: " + collision.name);
-        if (collision.CompareTag("snakeLava"))
+        if (collision.CompareTag("ground") || collision.CompareTag("snakeLava"))
         {
-            Destroy(collision.gameObject);
-        }
+            if (collision.CompareTag("snakeLava"))
+            {
+                Destroy(collision.gameObject); // Gegner verschwinden lassen
+            }
 
-        Destroy(gameObject); 
+            Destroy(gameObject); // Laser verschwindet
+        }
     }
 }
