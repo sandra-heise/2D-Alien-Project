@@ -7,6 +7,7 @@ public class PlayerPowerup : MonoBehaviour
     public bool CanHighJump { get; private set; } = false;
     public bool IsInvisible { get; private set; } = false;
     public bool CanShoot { get; private set; } = false;
+    
 
     private SpriteRenderer spriteRenderer;
     private Coroutine currentPowerupRoutine;
@@ -18,6 +19,12 @@ public class PlayerPowerup : MonoBehaviour
     public Sprite shootSprite;     // für schiessen
     private Animator animator;
 
+    public Transform firePoint; // Position vorne am Spieler
+    public float shootCooldown = 0.5f;
+
+    public GameObject LaserPrefab;
+    public GameObject cannonVisual;
+
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -27,6 +34,13 @@ public class PlayerPowerup : MonoBehaviour
             timeText.gameObject.SetActive(false);
         }
         spriteRenderer.sprite = defaultSprite;
+    }
+    void Update()
+    {
+        if (CanShoot && Input.GetKeyDown(KeyCode.F))
+        {
+            Shoot();
+        }
     }
 
     public void ActivatePowerUp(PowerUpType type, float duration)
@@ -72,11 +86,14 @@ public class PlayerPowerup : MonoBehaviour
                 {
                     animator.SetBool("isYellow", true);
                 }
+                if (cannonVisual != null)
+                {
+                    cannonVisual.SetActive(true);
+                }
                 break;
         }
         currentPowerupRoutine = StartCoroutine(PowerUpTimer(type, duration));
     }
-
     private IEnumerator PowerUpTimer(PowerUpType type, float duration)
     {
         float timer = duration;
@@ -119,5 +136,25 @@ public class PlayerPowerup : MonoBehaviour
         {
             timeText.gameObject.SetActive(false);
         }
+        if (cannonVisual != null)
+        {
+            cannonVisual.SetActive(false);
+        }
     }
- }
+    private void Shoot()
+    {
+        GameObject laser = Instantiate(LaserPrefab, firePoint.position, Quaternion.identity);
+        Laser projScript = laser.GetComponent<Laser>();
+
+        if (transform.localScale.x < 0) // Spieler schaut nach links?
+        {
+            projScript.SetDirection(Vector2.left);
+            laser.transform.localScale = new Vector3(-1, 1, 1); // ggf. spiegeln
+        }
+        else
+        {
+            projScript.SetDirection(Vector2.right);
+        }
+    }
+
+}
