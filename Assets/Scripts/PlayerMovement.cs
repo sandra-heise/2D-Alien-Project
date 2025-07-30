@@ -171,6 +171,7 @@ public class PlayerMovement : MonoBehaviour
                 break;
 
             case "Spike":
+            case "lava":
                 StartCoroutine(playerHealth.LoseLife());
                 break;
 

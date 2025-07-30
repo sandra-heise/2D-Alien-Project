@@ -10,6 +10,8 @@ public class PlayerHealth : MonoBehaviour
     private Rigidbody2D rb;
     private PlayerPowerup powerup;
     private bool isDying = false;
+    [SerializeField] private LavaController lavaController;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -32,6 +34,7 @@ public class PlayerHealth : MonoBehaviour
         lives--;
         powerup?.CancelPowerUp();
         UpdateLifeUI();
+        lavaController.ResetLava();
 
         if (Diamond.lastCollectedDiamond != null)
         {
@@ -57,8 +60,9 @@ public class PlayerHealth : MonoBehaviour
         {
             key.ResetKey();
         }
-        yield return new WaitForSeconds(0.2f); // kurzer Schutzzeitraum
-        isDying = false; // wieder bereit für neues Leben verlieren
+        yield return new WaitForSeconds(0.2f);
+        isDying = false;
+       
     }
     public void UpdateLifeUI()
     {
