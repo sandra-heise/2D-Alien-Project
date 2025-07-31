@@ -67,7 +67,7 @@ public class PlayerHealth : MonoBehaviour
     public void UpdateLifeUI()
     {
         if (lifeText != null)
-            lifeText.text = "x " + lives;
+            lifeText.text = ": " + lives;
     }
     private IEnumerator FlashRoutine(float duration)
     {
