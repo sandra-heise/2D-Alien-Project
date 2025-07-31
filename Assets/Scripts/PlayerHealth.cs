@@ -5,17 +5,20 @@ using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int lives = 5;
+    public int lives = 10;
     public TextMeshProUGUI lifeText;
     private Rigidbody2D rb;
     private PlayerPowerup powerup;
     private bool isDying = false;
     [SerializeField] private LavaController lavaController;
+    public static int LivesUsed { get; private set; } = 0;
+
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         powerup = GetComponent<PlayerPowerup>();
+        LivesUsed = 0;
     }
 
     [System.Obsolete]
@@ -32,6 +35,7 @@ public class PlayerHealth : MonoBehaviour
         GetComponent<Collider2D>().enabled = true;
 
         lives--;
+        LivesUsed++;
         powerup?.CancelPowerUp();
         UpdateLifeUI();
         lavaController.ResetLava();

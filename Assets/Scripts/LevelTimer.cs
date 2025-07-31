@@ -48,4 +48,8 @@ public class LevelTimer : MonoBehaviour
     {
         isRunning = false;
     }
+    public float TimeElapsed
+    {
+        get { return totalTime - currentTime; }
+    }
 }
