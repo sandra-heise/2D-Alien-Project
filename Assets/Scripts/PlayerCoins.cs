@@ -5,10 +5,12 @@ public class PlayerCoins : MonoBehaviour
 {
     public TextMeshProUGUI coinText;
     private int coinCount = 0;
+    public AudioClip coinSound;
 
     public void AddCoin()
     {
         coinCount ++;
+        AudioSource.PlayClipAtPoint(coinSound, transform.position);
         UpdateCoinUI();
     }
 

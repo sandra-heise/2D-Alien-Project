@@ -15,7 +15,6 @@ public class PlayerMovement : MonoBehaviour
     private BridgeMover currentBridgeMover;
     private PlayerCoins playerCoins;
 
-
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
     private bool isGrounded;

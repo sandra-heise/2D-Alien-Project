@@ -16,6 +16,7 @@ public class LeverMechanism : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private bool isSwitched = false;
     private bool playerInRange = false;
+    public AudioClip switchSound;
 
     private void Start()
     {
@@ -29,6 +30,7 @@ public class LeverMechanism : MonoBehaviour
         // Spieler ist in Reichweite und drückt Taste (z. B. E)
         if (playerInRange && Input.GetKeyDown(KeyCode.E))
         {
+            AudioSource.PlayClipAtPoint(switchSound, transform.position);
             ToggleLever();
         }
     }

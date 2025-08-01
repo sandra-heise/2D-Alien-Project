@@ -5,10 +5,12 @@ public class KeyFollower : MonoBehaviour
     private bool isCollected = false;
     private Transform playerTransform;
     private Vector3 startPosition;
+    private AudioSource audioSource;
 
     void Start()
     {
         startPosition = transform.position;
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -23,8 +25,16 @@ public class KeyFollower : MonoBehaviour
 
     public void Collect(Transform player)
     {
-        isCollected = true;
-        playerTransform = player;
+        if (!isCollected)
+        {
+            isCollected = true;
+            playerTransform = player;
+
+            if (audioSource != null)
+                audioSource.Play();
+
+            GetComponent<Collider2D>().enabled = false;
+        }
     }
 
     public void ResetKey()
@@ -32,6 +42,7 @@ public class KeyFollower : MonoBehaviour
         isCollected = false;
         playerTransform = null;
         transform.position = startPosition;
+        GetComponent<Collider2D>().enabled = true;
     }
 
     public bool IsCollected()
