@@ -22,7 +22,9 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 startPosition = new Vector2(-8f, 0f); //new Vector2(108f, 8f);//new Vector2(83f, 0f);  //new Vector2(58f, 0f); // new Vector2(-8f, 0f);//new Vector2(14f, 0f); 
     private int waterTriggerCount = 0;
     private bool IsInWater => waterTriggerCount > 0;
-    
+    public AudioClip waterSound;
+    private AudioSource waterAudioSource;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -33,6 +35,11 @@ public class PlayerMovement : MonoBehaviour
         isGrounded = false;
         transform.position = startPosition;
         playerCoins.UpdateCoinUI();
+
+        waterAudioSource = gameObject.AddComponent<AudioSource>();
+        waterAudioSource.clip = waterSound;
+        waterAudioSource.loop = true;
+        waterAudioSource.playOnAwake = false;
     }
 
     void Update()
@@ -60,6 +67,18 @@ public class PlayerMovement : MonoBehaviour
         {
             transform.position += currentBridgeMover.PlatformVelocity;
         }
+        // Kontrolliere, ob Wasser-Sound abgespielt werden soll
+        if (IsInWater && powerup?.CanSwim == true)
+        {
+            if (!waterAudioSource.isPlaying)
+                waterAudioSource.Play();
+        }
+        else
+        {
+            if (waterAudioSource.isPlaying)
+                waterAudioSource.Stop();
+        }
+
     }
 
     private void HandleMovement(float moveInput)
