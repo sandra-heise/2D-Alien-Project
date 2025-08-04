@@ -6,12 +6,16 @@ public class DoorController : MonoBehaviour
     public GameObject lockObject;      // Schloss
     public Sprite openDoorSprite;      // Sprite der offenen Tür
     public GameObject keyFollow;       // Der Schlüssel, der folgen kann
+    private AudioSource audioSource;
 
     private bool isOpen = false;
 
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Trigger betreten von: " + collision.name);
         if (collision.CompareTag("Player") && keyFollow != null )
         {
 
@@ -30,17 +34,15 @@ public class DoorController : MonoBehaviour
         if (isOpen) return;
 
         isOpen = true;
+        if (audioSource != null)
+            audioSource.Play();
 
-        // Tür-Sprite ändern
         doorSprite.GetComponent<SpriteRenderer>().sprite = openDoorSprite;
 
-        
-        // Schloss und Schlüssel deaktivieren
         if (lockObject != null) lockObject.SetActive(false);
         if (keyFollow != null) keyFollow.SetActive(false);
 
 
-        // collider entfernen
         Collider2D doorCollider = doorSprite.GetComponent<Collider2D>();
         if (doorCollider != null)
         {

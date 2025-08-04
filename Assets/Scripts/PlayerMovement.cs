@@ -172,6 +172,7 @@ public class PlayerMovement : MonoBehaviour
             case "Spike":
             case "lava":
             case "snakeLava":
+            case "Fish":
                 StartCoroutine(playerHealth.LoseLife());
                 break;
 
@@ -220,7 +221,7 @@ public class PlayerMovement : MonoBehaviour
             currentBridgeMover = null;
         }
     }
-    public void Bounce(float bounceForce = 8f)
+    public void Bounce(float bounceForce = 6f)
     {
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
         rb.AddForce(Vector2.up * bounceForce, ForceMode2D.Impulse);
