@@ -10,7 +10,7 @@ public class PlayerCoins : MonoBehaviour
     public void AddCoin()
     {
         coinCount ++;
-        AudioSource.PlayClipAtPoint(coinSound, transform.position);
+        PlaySoundWithVolume(coinSound, transform.position, 0.7f);
         UpdateCoinUI();
     }
 
@@ -34,5 +34,17 @@ public class PlayerCoins : MonoBehaviour
     {
         if (coinText != null)
             coinText.text = ": " + coinCount;
+    }
+    private void PlaySoundWithVolume(AudioClip clip, Vector3 position, float volume)
+    {
+        GameObject tempGO = new GameObject("TempAudio");
+        tempGO.transform.position = position;
+
+        AudioSource aSource = tempGO.AddComponent<AudioSource>();
+        aSource.clip = clip;
+        aSource.volume = volume;
+        aSource.Play();
+
+        Destroy(tempGO, clip.length);
     }
 }
