@@ -220,5 +220,10 @@ public class PlayerMovement : MonoBehaviour
             currentBridgeMover = null;
         }
     }
-  
+    public void Bounce(float bounceForce = 8f)
+    {
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
+        rb.AddForce(Vector2.up * bounceForce, ForceMode2D.Impulse);
+    }
+
 }

@@ -12,6 +12,7 @@ public class PlayerHealth : MonoBehaviour
     private bool isDying = false;
     [SerializeField] private LavaController lavaController;
     public static int LivesUsed { get; private set; } = 0;
+    public AudioClip deathSound;
 
 
     void Start()
@@ -26,6 +27,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (isDying) yield break;
         isDying = true;
+        AudioSource.PlayClipAtPoint(deathSound, transform.position);
         rb.linearVelocity = Vector2.zero;
         GetComponent<Collider2D>().enabled = false; 
 
