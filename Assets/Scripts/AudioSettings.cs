@@ -16,6 +16,7 @@ public class AudioManager : MonoBehaviour
     public void ToggleSound()
     {
         isMuted = !isMuted;
+        AudioListener.volume = isMuted ? 0f : 1f;
         UpdateIcon();
     }
 
