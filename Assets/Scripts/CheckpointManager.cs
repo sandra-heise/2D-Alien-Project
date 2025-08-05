@@ -4,9 +4,15 @@ public class CheckpointManager : MonoBehaviour
 {
     public static Vector2 currentCheckpointPosition;
     private static bool checkpointReached = false;
+    private AudioSource audioSource;
 
     [SerializeField] private Sprite activeFlag;
     [SerializeField] private Sprite inactiveFlag;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     private void Awake()
     {
@@ -21,6 +27,8 @@ public class CheckpointManager : MonoBehaviour
     {
         currentCheckpointPosition = checkpointTransform.position;
         checkpointReached = true;
+        if (audioSource != null)
+            audioSource.Play();
 
         foreach (GameObject flag in GameObject.FindGameObjectsWithTag("Checkpoint"))
         {

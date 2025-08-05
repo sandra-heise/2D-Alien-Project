@@ -11,12 +11,12 @@ public class MovingRotatingSaw : MonoBehaviour
 
     void Start()
     {
-        targetPoint = right.position; 
+        targetPoint = right.position;
     }
 
     void Update()
     {
-        
+
         transform.position = Vector3.MoveTowards(transform.position, targetPoint, moveSpeed * Time.deltaTime);
 
         
