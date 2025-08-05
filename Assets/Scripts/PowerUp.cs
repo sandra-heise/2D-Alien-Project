@@ -19,7 +19,7 @@ public class PlayerPowerup : MonoBehaviour
     public Sprite shootSprite;     // für schiessen
     private Animator animator;
 
-    public Transform firePoint; // Position vorne am Spieler
+    public Transform firePoint; 
     public float shootCooldown = 0.5f;
 
     public GameObject LaserPrefab;
@@ -50,11 +50,17 @@ public class PlayerPowerup : MonoBehaviour
             StopCoroutine(currentPowerupRoutine);
         }
 
+        StartCoroutine(HighlightTimeText());
+
         switch (type)
         {
             case PowerUpType.Swim:
                 CanSwim = true;
                 spriteRenderer.sprite = blueSprite;
+                if (BackgroundMusicManager.Instance != null)
+                {
+                    BackgroundMusicManager.Instance.PlayPowerUpMusic();
+                }
                 if (animator != null)
                 {
                     animator.SetBool("isBlue", true);
@@ -64,6 +70,10 @@ public class PlayerPowerup : MonoBehaviour
             case PowerUpType.HighJump:
                 CanHighJump = true;
                 spriteRenderer.sprite = redSprite;
+                if (BackgroundMusicManager.Instance != null)
+                {
+                    BackgroundMusicManager.Instance.PlayPowerUpMusic();
+                }
                 if (animator != null)
                 {
                     animator.SetBool("isRed", true);
@@ -136,11 +146,35 @@ public class PlayerPowerup : MonoBehaviour
         {
             timeText.gameObject.SetActive(false);
         }
+        if (BackgroundMusicManager.Instance != null)
+        {
+            BackgroundMusicManager.Instance.StopPowerUpMusic();
+        }
         if (cannonVisual != null)
         {
             cannonVisual.SetActive(false);
         }
     }
+    private IEnumerator HighlightTimeText()
+    {
+        float startSize = 50f;
+        float endSize = 36f;
+        float duration = 1.5f;
+        float elapsed = 0f;
+
+        timeText.fontSize = startSize;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration;
+            timeText.fontSize = Mathf.Lerp(startSize, endSize, t);
+            yield return null;
+        }
+
+        timeText.fontSize = endSize;
+    }
+
     private void Shoot()
     {
         GameObject laser = Instantiate(LaserPrefab, firePoint.position, Quaternion.identity);
