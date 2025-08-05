@@ -25,13 +25,17 @@ public class MovingPlatform : MonoBehaviour
         offset = Random.Range(0f, 1f);
         
         float startLerp = Mathf.PingPong(Time.time * moveSpeed + offset, 1f);
-        transform.position = Vector3.Lerp(pointA.position, pointB.position, startLerp);
+        Vector3 newPosition = Vector3.Lerp(pointA.position, pointB.position, startLerp);
+        newPosition.z = transform.position.z; // ursprünglichen Z-Wert behalten
+        transform.position = newPosition;
     }
 
     void Update()
     {
         float t = Mathf.PingPong(Time.time * moveSpeed + offset, 1f);
-        transform.position = Vector3.Lerp(pointA.position, pointB.position, t);
+        Vector3 newPosition = Vector3.Lerp(pointA.position, pointB.position, t);
+        newPosition.z = transform.position.z; // Z-Wert nicht überschreiben
+        transform.position = newPosition;
     }
     void LateUpdate()
     {
