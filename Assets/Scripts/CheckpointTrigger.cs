@@ -3,6 +3,7 @@ using UnityEngine;
 public class CheckpointTrigger : MonoBehaviour
 {
     private CheckpointManager manager;
+    private bool isActivated = false;
 
     private void Start()
     {
@@ -11,8 +12,9 @@ public class CheckpointTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !isActivated)
         {
+            isActivated = true;
             manager.ActivateCheckpoint(transform);
         }
     }
