@@ -24,11 +24,14 @@ public class PlayerPowerup : MonoBehaviour
 
     public GameObject LaserPrefab;
     public GameObject cannonVisual;
+    public AudioClip shootSound;
+    private AudioSource audioSource;
 
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>(); 
         if (timeText != null)
         {
             timeText.gameObject.SetActive(false);
@@ -45,6 +48,8 @@ public class PlayerPowerup : MonoBehaviour
 
     public void ActivatePowerUp(PowerUpType type, float duration)
     {
+        ResetPowerUpStatus(); //deactivate old power ups
+
         if (currentPowerupRoutine != null)
         {
             StopCoroutine(currentPowerupRoutine);
@@ -126,7 +131,7 @@ public class PlayerPowerup : MonoBehaviour
 
         CancelPowerUp();
     }
-    public void CancelPowerUp()
+    private void ResetPowerUpStatus()
     {
         CanSwim = false;
         CanHighJump = false;
@@ -142,17 +147,24 @@ public class PlayerPowerup : MonoBehaviour
             animator.SetBool("isInvisible", false);
         }
 
+        if (cannonVisual != null)
+        {
+            cannonVisual.SetActive(false);
+        }
+
         if (timeText != null)
         {
             timeText.gameObject.SetActive(false);
         }
+    }
+
+    public void CancelPowerUp()
+    {
+        ResetPowerUpStatus();
+
         if (BackgroundMusicManager.Instance != null)
         {
             BackgroundMusicManager.Instance.StopPowerUpMusic();
-        }
-        if (cannonVisual != null)
-        {
-            cannonVisual.SetActive(false);
         }
     }
     private IEnumerator HighlightTimeText()
@@ -188,6 +200,10 @@ public class PlayerPowerup : MonoBehaviour
         else
         {
             projScript.SetDirection(Vector2.right);
+        }
+        if (shootSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(shootSound);
         }
     }
 
