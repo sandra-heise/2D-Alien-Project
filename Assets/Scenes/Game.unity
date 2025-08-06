@@ -29416,8 +29416,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 225, y: 126.34}
-  m_SizeDelta: {x: 49.1237, y: 50}
+  m_AnchoredPosition: {x: 210.5203, y: 123.88}
+  m_SizeDelta: {x: 78.0832, y: 54.923}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &709084212
 MonoBehaviour:
@@ -37427,6 +37427,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerUpMusic: {fileID: 960912382}
+  fadeDuration: 1.5
 --- !u!82 &960912380
 AudioSource:
   m_ObjectHideFlags: 0
@@ -37549,8 +37550,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: fc3e77c6d2458464aab971c30f921910, type: 3}
-  m_Resource: {fileID: 8300000, guid: fc3e77c6d2458464aab971c30f921910, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a11471496db13d34b8e1b577036b3590, type: 3}
+  m_Resource: {fileID: 8300000, guid: a11471496db13d34b8e1b577036b3590, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -39323,8 +39324,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -315.9532, y: 124.1}
-  m_SizeDelta: {x: 57.4549, y: 55.366}
+  m_AnchoredPosition: {x: -302.831, y: 124.1}
+  m_SizeDelta: {x: 83.6994, y: 55.365}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1001048978
 MonoBehaviour:
