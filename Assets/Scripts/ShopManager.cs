@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -18,9 +19,12 @@ public class ShopUIManager : MonoBehaviour
     public Button notEnoughCoinsOkButton;
     private PlayerPowerup playerPowerup;
 
+    private AudioSource shopSource;
+
     void Start()
     {
         playerPowerup = GameObject.FindWithTag("Player").GetComponent<PlayerPowerup>();
+        shopSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -35,8 +39,16 @@ public class ShopUIManager : MonoBehaviour
     public void OpenShop()
     {
         shopUI.SetActive(true);
+        Debug.Log("Open");
         Time.timeScale = 0f;
+        StartCoroutine(PlayShopSoundDelayed());
         StartCoroutine(SelectButtonNextFrame());
+    }
+    private IEnumerator PlayShopSoundDelayed()
+    {
+        yield return null; // wartet einen Frame
+        if (shopSource != null)
+            shopSource.Play();
     }
     private IEnumerator SelectButtonNextFrame()
     {

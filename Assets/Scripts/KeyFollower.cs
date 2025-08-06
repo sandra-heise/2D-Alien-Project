@@ -39,6 +39,7 @@ public class KeyFollower : MonoBehaviour
 
     public void ResetKey()
     {
+        Debug.Log("ResetKey");
         isCollected = false;
         playerTransform = null;
         transform.position = startPosition;

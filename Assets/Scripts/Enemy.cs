@@ -37,8 +37,6 @@ public class Enemy : MonoBehaviour
 
             bool hitFromAbove = contactPoint.y > enemyCenter.y + 0.1f;
 
-            Debug.Log(contactPoint.y + " " + enemyCenter.y)  ;
-
             if (hitFromAbove)
             {
                 PlayerMovement playerMovement = FindPlayerMovement(collision.gameObject);
