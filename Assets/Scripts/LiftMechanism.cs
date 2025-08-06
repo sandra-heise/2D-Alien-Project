@@ -20,6 +20,8 @@ public class LiftMechanism : MonoBehaviour
     private Vector3 liftStartPos;
     private Vector3 liftEndPos;
     private AudioSource switchSound;
+    private float initialRopeDistance;
+    private float initialRopeLength = 7.18f; 
 
     private void Start()
     {
@@ -29,6 +31,8 @@ public class LiftMechanism : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = liftdefaultSprite;
         switchSound = GetComponent<AudioSource>();
+        initialRopeDistance = Vector3.Distance(liftLeft.position, liftPlattform.position);
+
 
     }
 
@@ -67,6 +71,8 @@ public class LiftMechanism : MonoBehaviour
             float t = time / duration;
 
             liftPlattform.position = Vector3.Lerp(startPos, targetPos, t);
+            UpdateRopes();
+
             yield return null;
         }
 
@@ -90,6 +96,23 @@ public class LiftMechanism : MonoBehaviour
             isMoving = false;
         }
     }
+    private void UpdateRopes()
+    {
+        float currentDistance = Vector3.Distance(liftLeft.position, liftPlattform.position);
+
+        // Berechne neuen Skalierungsfaktor
+        float newScaleX = currentDistance / initialRopeDistance * initialRopeLength;
+
+        Vector3 scaleLeft = liftLeft.localScale;
+        scaleLeft.x = newScaleX;
+        liftLeft.localScale = scaleLeft;
+
+        Vector3 scaleRight = liftRight.localScale;
+        scaleRight.x = newScaleX;
+        liftRight.localScale = scaleRight;
+    }
+
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
