@@ -19,6 +19,7 @@ public class LiftMechanism : MonoBehaviour
 
     private Vector3 liftStartPos;
     private Vector3 liftEndPos;
+    private AudioSource switchSound;
 
     private void Start()
     {
@@ -27,12 +28,16 @@ public class LiftMechanism : MonoBehaviour
 
         spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = liftdefaultSprite;
+        switchSound = GetComponent<AudioSource>();
+
     }
 
     private void Update()
     {
         if (playerInRange && Input.GetKeyDown(KeyCode.E) && !isMoving)
         {
+            if (switchSound != null)
+                switchSound.Play();
             ToggleLever();
         }
     }

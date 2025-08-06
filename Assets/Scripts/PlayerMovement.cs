@@ -19,13 +19,15 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce = 10f;
     private bool isGrounded;
     private bool hasUmbrella = false;
-    private Vector2 startPosition = new Vector2(-8f,0f);  //new Vector2(108f, 8f);//new Vector2(83f, 0f);  //new Vector2(58f, 0f); // new Vector2(-8f, 0f);//new Vector2(14f, 0f); 
+    private Vector2 startPosition = new Vector2(58f,0f);  //new Vector2(108f, 8f);//new Vector2(83f, 0f);  //new Vector2(58f, 0f); // new Vector2(-8f, 0f);//new Vector2(14f, 0f); 
     private int waterTriggerCount = 0;
     private bool IsInWater => waterTriggerCount > 0;
     public AudioClip waterSound;
     private AudioSource waterAudioSource;
     public AudioClip heartCollectSound;  
     private AudioSource heartAudioSource;
+    public AudioClip megaJumpSound;
+    private AudioSource megaJumpAudioSource;
 
     void Start()
     {
@@ -45,7 +47,10 @@ public class PlayerMovement : MonoBehaviour
 
         heartAudioSource = gameObject.AddComponent<AudioSource>();
         heartAudioSource.clip = heartCollectSound;
-     }
+
+        megaJumpAudioSource = gameObject.AddComponent<AudioSource>();
+        megaJumpAudioSource.clip = megaJumpSound;
+    }
 
     void Update()
     {
@@ -110,7 +115,9 @@ public class PlayerMovement : MonoBehaviour
 
                 if (powerup != null && powerup.CanHighJump)
                 {
-                    finalJumpForce *= 1.4f; 
+                    finalJumpForce *= 1.4f;
+                    if (!megaJumpAudioSource.isPlaying)
+                        megaJumpAudioSource.Play();
                 }
 
                 rb.AddForce(Vector2.up * finalJumpForce, ForceMode2D.Impulse);
