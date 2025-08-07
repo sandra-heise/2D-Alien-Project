@@ -8889,6 +8889,7 @@ MonoBehaviour:
   platform: {fileID: 0}
   targetPoint: {fileID: 0}
   moveSpeed: 2
+  bossFightController: {fileID: 0}
 --- !u!61 &227402591
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -32845,6 +32846,7 @@ GameObject:
   m_Component:
   - component: {fileID: 782612538}
   - component: {fileID: 782612539}
+  - component: {fileID: 782612540}
   m_Layer: 0
   m_Name: spider
   m_TagString: Untagged
@@ -32861,11 +32863,11 @@ Transform:
   m_GameObject: {fileID: 782612537}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 87.91, y: 5.59, z: -0.05872715}
-  m_LocalScale: {x: 4.9920363, y: 5.0226727, z: 1}
+  m_LocalPosition: {x: 105.318954, y: 5.6499934, z: 0}
+  m_LocalScale: {x: 5, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 862536182}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &782612539
 SpriteRenderer:
@@ -32922,6 +32924,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &782612540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 782612537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67c2e46b641c3d1428d5d56e2062772e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftX: 101
+  rightX: 110
+  moveSpeed: 2
 --- !u!1 &783175086
 GameObject:
   m_ObjectHideFlags: 0
@@ -35345,7 +35362,6 @@ Transform:
   - {fileID: 1841852013}
   - {fileID: 1002078473}
   - {fileID: 2041486397}
-  - {fileID: 782612538}
   - {fileID: 2044142495}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -64720,6 +64736,7 @@ MonoBehaviour:
   platform: {fileID: 783175088}
   targetPoint: {fileID: 2036633211}
   moveSpeed: 2
+  bossFightController: {fileID: 782612540}
 --- !u!95 &1698801789
 Animator:
   serializedVersion: 7
@@ -84431,6 +84448,7 @@ SceneRoots:
   - {fileID: 87694031}
   - {fileID: 16186700}
   - {fileID: 832044674}
+  - {fileID: 782612538}
   - {fileID: 2014646079}
   - {fileID: 2108148357}
   - {fileID: 1439917570}

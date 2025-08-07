@@ -15,7 +15,8 @@ public class LavaTrigger : MonoBehaviour
     private AudioSource audiossource;
     public Transform platform;
     public Transform targetPoint;   
-    public float moveSpeed = 2f;    
+    public float moveSpeed = 2f;
+    public BossFightController bossFightController;
 
     private void Start()
     {
@@ -65,6 +66,10 @@ public class LavaTrigger : MonoBehaviour
             yield return null;
         }
         StartCoroutine(FadeAndDestroy());
+        if (bossFightController != null)
+        {
+            bossFightController.StartBossFight();
+        }
     }
     private IEnumerator FadeAndDestroy()
     {
