@@ -11,9 +11,11 @@ public class LavaTrigger : MonoBehaviour
     public LavaActionType actionType;
     public LavaController lavaController;
     private Animator animator;
+    private AudioSource audiossource;
     private void Start()
     {
         animator = GetComponent<Animator>();
+        audiossource = GetComponent<AudioSource>();
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -32,6 +34,10 @@ public class LavaTrigger : MonoBehaviour
             {
                 lavaController.StopRaising();
             }
+        }
+        if (audiossource != null)
+        {
+            audiossource.Play();
         }
     }
     private void OnTriggerExit2D(Collider2D collision)

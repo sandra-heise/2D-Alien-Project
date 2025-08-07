@@ -7,6 +7,7 @@ public class BackgroundMusicManager : MonoBehaviour
 
     private AudioSource audioSource;
     public AudioSource powerUpMusic;
+    public AudioSource castleMusic;
     public float fadeDuration = 1.5f;
     void Awake()
     {
@@ -42,10 +43,19 @@ public class BackgroundMusicManager : MonoBehaviour
     {
         StartCoroutine(Crossfade(audioSource, powerUpMusic));
     }
+    public void PlayCastleMusic()
+    {
+        StartCoroutine(Crossfade(audioSource, castleMusic));
+    }
 
     public void StopPowerUpMusic()
     {
         StartCoroutine(Crossfade(powerUpMusic, audioSource));
+    }
+
+    public void StopCastleMusic()
+    {
+        StartCoroutine(Crossfade(castleMusic, audioSource));
     }
     private IEnumerator Crossfade(AudioSource from, AudioSource to)
     {

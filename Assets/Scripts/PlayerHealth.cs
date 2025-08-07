@@ -41,6 +41,10 @@ public class PlayerHealth : MonoBehaviour
         powerup?.CancelPowerUp();
         UpdateLifeUI();
         lavaController.ResetLava();
+        if (BackgroundMusicManager.Instance != null)
+        {
+            BackgroundMusicManager.Instance.StopCastleMusic();
+        }
 
         if (Diamond.lastCollectedDiamond != null)
         {
@@ -60,12 +64,7 @@ public class PlayerHealth : MonoBehaviour
         }
 
         FindObjectOfType<LeverMechanism>()?.ResetMechanism();
-
-        var key = FindObjectOfType<KeyFollower>();
-        if (key?.IsCollected() == true)
-        {
-            key.ResetKey();
-        }
+         
         yield return new WaitForSeconds(0.2f);
         isDying = false;
        
