@@ -3,16 +3,19 @@ using UnityEngine;
 
 public class BossFightController : MonoBehaviour
 {
+    [Header("Horizontal Movement")]
     public float leftX = 101f;
     public float rightX = 110f;
     public float moveSpeed = 2f;
 
-    private bool movingRight = false;
-    private bool isActive = false;
-
+    [Header("Pause Movement")]
     public float pauseDownDistance = 2.8f;
     public float verticalMoveSpeed = 3f;
     public float waitAtBottom = 0.5f;
+    public float waitAtTop = 0.1f;
+
+    private bool movingRight = false;
+    private bool isActive = false;
 
     public void StartBossFight()
     {
@@ -27,58 +30,73 @@ public class BossFightController : MonoBehaviour
     {
         while (true)
         {
-            float runDuration = Random.Range(1f, 8f);
-            float runTimer = 0f;
+            yield return MoveHorizontallyForRandomDuration();
+            yield return PauseAndMoveVertically();
+        }
+    }
 
-            while (runTimer < runDuration)
+    private IEnumerator MoveHorizontallyForRandomDuration()
+    {
+        float runDuration = Random.Range(1f, 8f);
+        float timer = 0f;
+
+        while (timer < runDuration)
+        {
+            MoveHorizontally();
+            timer += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    private void MoveHorizontally()
+    {
+        Vector3 position = transform.position;
+
+        if (movingRight)
+        {
+            position.x += moveSpeed * Time.deltaTime;
+            if (position.x >= rightX)
             {
-                Vector3 position = transform.position;
-
-                if (movingRight)
-                {
-                    position.x += moveSpeed * Time.deltaTime;
-                    if (position.x >= rightX)
-                    {
-                        position.x = rightX;
-                        movingRight = false;
-                        transform.localScale = new Vector3(5f, 5f, 1f);
-                    }
-                }
-                else
-                {
-                    position.x -= moveSpeed * Time.deltaTime;
-                    if (position.x <= leftX)
-                    {
-                        position.x = leftX;
-                        movingRight = true;
-                        transform.localScale = new Vector3(-5f, 5f, 1f);
-                    }
-                }
-
-                transform.position = position;
-                runTimer += Time.deltaTime;
-                yield return null;
+                position.x = rightX;
+                ChangeDirection(false);
             }
-
-
-            Vector3 startPos = transform.position;
-            Vector3 downPos = startPos + Vector3.down * pauseDownDistance;
-
-            while (Vector3.Distance(transform.position, downPos) > 0.01f)
+        }
+        else
+        {
+            position.x -= moveSpeed * Time.deltaTime;
+            if (position.x <= leftX)
             {
-                transform.position = Vector3.MoveTowards(transform.position, downPos, verticalMoveSpeed * Time.deltaTime);
-                yield return null;
+                position.x = leftX;
+                ChangeDirection(true);
             }
+        }
 
-            yield return new WaitForSeconds(waitAtBottom);
+        transform.position = position;
+    }
 
-            while (Vector3.Distance(transform.position, startPos) > 0.01f)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, startPos, verticalMoveSpeed * Time.deltaTime);
-                yield return null;
-            }
+    private void ChangeDirection(bool toRight)
+    {
+        movingRight = toRight;
+        transform.localScale = new Vector3(movingRight ? 5f : -5f, 5f, 1f);
+    }
 
-            yield return new WaitForSeconds(0.1f);
+    private IEnumerator PauseAndMoveVertically()
+    {
+        Vector3 startPos = transform.position;
+        Vector3 downPos = startPos + Vector3.down * pauseDownDistance;
+
+        yield return MoveToPosition(downPos, verticalMoveSpeed);
+        yield return new WaitForSeconds(waitAtBottom);
+        yield return MoveToPosition(startPos, verticalMoveSpeed);
+        yield return new WaitForSeconds(waitAtTop);
+    }
+
+    private IEnumerator MoveToPosition(Vector3 target, float speed)
+    {
+        while (Vector3.Distance(transform.position, target) > 0.01f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+            yield return null;
         }
     }
 }

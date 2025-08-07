@@ -28,6 +28,7 @@ TagManager:
   - BridgeTrigger
   - diamantRed
   - laser
+  - spider
   layers:
   - Default
   - TransparentFX
