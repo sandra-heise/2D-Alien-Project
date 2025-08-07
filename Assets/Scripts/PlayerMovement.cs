@@ -208,6 +208,7 @@ public class PlayerMovement : MonoBehaviour
             case "lava":
             case "snakeLava":
             case "Fish":
+            case "spider":
                 StartCoroutine(playerHealth.LoseLife());
                 break;
 
