@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public enum LavaActionType
@@ -12,6 +13,10 @@ public class LavaTrigger : MonoBehaviour
     public LavaController lavaController;
     private Animator animator;
     private AudioSource audiossource;
+    public Transform platform;
+    public Transform targetPoint;   
+    public float moveSpeed = 2f;    
+
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -33,11 +38,16 @@ public class LavaTrigger : MonoBehaviour
             else if (actionType == LavaActionType.Stop)
             {
                 lavaController.StopRaising();
+                if (platform != null && targetPoint != null)
+                {
+                    StartCoroutine(MovePlatformToTarget());
+                }
             }
         }
         if (audiossource != null)
         {
             audiossource.Play();
+
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -46,5 +56,32 @@ public class LavaTrigger : MonoBehaviour
         {
             animator.SetBool("isPushed", false);
         }
+    }
+    private System.Collections.IEnumerator MovePlatformToTarget()
+    {
+        while (Vector3.Distance(platform.position, targetPoint.position) > 0.01f)
+        {
+            platform.position = Vector3.MoveTowards(platform.position, targetPoint.position, moveSpeed * Time.deltaTime);
+            yield return null;
+        }
+        StartCoroutine(FadeAndDestroy());
+    }
+    private IEnumerator FadeAndDestroy()
+    {
+        float duration = 0.5f;
+        float elapsed = 0f;
+
+        Vector3 originalScale = transform.localScale;
+
+        while (elapsed < duration)
+        {
+            float t = elapsed / duration;
+            transform.localScale = Vector3.Lerp(originalScale, Vector3.zero, t);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.localScale = Vector3.zero;
+        Destroy(gameObject);
     }
 }
