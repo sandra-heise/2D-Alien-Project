@@ -10,15 +10,18 @@ public class LavaTrigger : MonoBehaviour
 {
     public LavaActionType actionType;
     public LavaController lavaController;
-
+    private Animator animator;
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            if (lavaController == null)
+            if (animator != null)
             {
-                Debug.LogWarning("LavaController nicht zugewiesen!");
-                return;
+                animator.SetBool("isPushed", true);
             }
 
             if (actionType == LavaActionType.Start)
@@ -29,6 +32,13 @@ public class LavaTrigger : MonoBehaviour
             {
                 lavaController.StopRaising();
             }
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (animator != null)
+        {
+            animator.SetBool("isPushed", false);
         }
     }
 }
