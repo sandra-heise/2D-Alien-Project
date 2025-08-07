@@ -39,7 +39,6 @@ public class ShopUIManager : MonoBehaviour
     public void OpenShop()
     {
         shopUI.SetActive(true);
-        Debug.Log("Open");
         Time.timeScale = 0f;
         StartCoroutine(PlayShopSoundDelayed());
         StartCoroutine(SelectButtonNextFrame());

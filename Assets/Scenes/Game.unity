@@ -38568,7 +38568,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerUpMusic: {fileID: 960912382}
-  castleMusic: {fileID: 0}
+  castleMusic: {fileID: 960912383}
   fadeDuration: 1.5
 --- !u!82 &960912380
 AudioSource:
