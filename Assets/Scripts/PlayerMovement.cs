@@ -260,7 +260,6 @@ public class PlayerMovement : MonoBehaviour
                 if (trigger != null)
                 {
                     currentBridgeMover = trigger.bridgeMover;
-                    UnityEngine.Debug.Log("Entered BridgeTrigger");
                 }
                 break;
         }

@@ -23,7 +23,8 @@ public class BossFightController : MonoBehaviour
     private bool isDefeated = false;
 
     public GameObject exitObject;
-    private float shrinkDuration = 1f;     
+    private float shrinkDuration = 1f;
+    private AudioSource audioSource;
 
     private void Awake()
     {
@@ -32,7 +33,10 @@ public class BossFightController : MonoBehaviour
     private void Start()
     {
         if (exitObject != null)
+        {
             exitObject.SetActive(false);
+        }
+        audioSource = GetComponent<AudioSource>();
     }
     public void StartBossFight()
     {
@@ -94,7 +98,7 @@ public class BossFightController : MonoBehaviour
     private void ChangeDirection(bool toRight)
     {
         movingRight = toRight;
-        transform.localScale = new Vector3(movingRight ? 5f : -5f, 5f, 1f);
+        transform.localScale = new Vector3(movingRight ? -5f : 5f, 5f, 1f);
     }
 
     private IEnumerator PauseAndMoveVertically()
@@ -121,7 +125,6 @@ public class BossFightController : MonoBehaviour
         if (isDefeated) return;
 
         currentHits--;
-        Debug.Log("leben: " + currentHits);
 
         if (currentHits <= 0)
         {
@@ -133,8 +136,24 @@ public class BossFightController : MonoBehaviour
 
     private void OnBossDefeated()
     {
-        Debug.Log("Boss besiegt"); 
         StartCoroutine(DefeatSequence());
+
+        if (BackgroundMusicManager.Instance != null)
+        {
+            BackgroundMusicManager.Instance.StopCastleMusic();
+        }
+
+        if (exitObject != null)
+        { 
+            exitObject.SetActive(true);
+
+            AudioSource audio = exitObject.GetComponent<AudioSource>();
+            if (audio != null)
+            {
+                audio.Play();
+            }
+        }
+
     }
     private IEnumerator DefeatSequence()
     {
@@ -142,8 +161,6 @@ public class BossFightController : MonoBehaviour
         Vector3 targetScale = Vector3.zero;
         float timer = 0f;
 
-        // Schrumpf-Animation
-        Debug.Log("schrumpfen");
         while (timer < shrinkDuration)
         {
             timer += Time.deltaTime;
@@ -151,12 +168,14 @@ public class BossFightController : MonoBehaviour
             yield return null;
         }
 
-        // Objekt zerstören
         Destroy(gameObject);
 
-        Debug.Log("exit");
-
-        if (exitObject != null)
-            exitObject.SetActive(true);
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Player"))
+        {
+            audioSource.Play();
+        }
     }
 }
