@@ -19,8 +19,10 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce = 10f;
     private bool isGrounded;
     private bool hasUmbrella = false;
-    private Vector2 startPosition = new Vector2(108f,8f);  //new Vector2(108f, 8f);//new Vector2(83f, 0f);  //new Vector2(58f, 0f); // new Vector2(-8f, 0f);//new Vector2(14f, 0f); 
+    private Vector2 startPosition = new Vector2(100f,8f);  //new Vector2(108f, 8f);//new Vector2(83f, 0f);  //new Vector2(58f, 0f); // new Vector2(-8f, 0f);//new Vector2(14f, 0f); 
     private int waterTriggerCount = 0;
+    private bool canHitBoss = true;  
+    private float hitCooldown = 3f;
     private bool IsInWater => waterTriggerCount > 0;
     public AudioClip waterSound;
     private AudioSource waterAudioSource;
@@ -165,6 +167,18 @@ public class PlayerMovement : MonoBehaviour
         {
             currentMovingPlatform = collision.collider.GetComponent<MovingPlatform>();
         }
+        if (collision.gameObject.CompareTag("spider"))
+        {
+           
+           BossFightController boss = collision.gameObject.GetComponent<BossFightController>();
+           if (boss != null)
+            {
+             boss.TakeHit();
+             canHitBoss = false;
+             Invoke(nameof(ResetHit), hitCooldown);
+            }
+           Bounce(12f);
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -267,6 +281,10 @@ public class PlayerMovement : MonoBehaviour
     {
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
         rb.AddForce(Vector2.up * bounceForce, ForceMode2D.Impulse);
+    }
+    private void ResetHit()
+    {
+        canHitBoss = true;
     }
 
 }

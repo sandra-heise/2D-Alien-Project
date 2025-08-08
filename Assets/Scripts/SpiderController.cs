@@ -14,9 +14,26 @@ public class BossFightController : MonoBehaviour
     public float waitAtBottom = 0.5f;
     public float waitAtTop = 0.1f;
 
+    [Header("Boss Health")]
+    public int maxHits = 3;
+    private int currentHits;
+
     private bool movingRight = false;
     private bool isActive = false;
+    private bool isDefeated = false;
 
+    public GameObject exitObject;
+    private float shrinkDuration = 1f;     
+
+    private void Awake()
+    {
+        currentHits = maxHits;
+    }
+    private void Start()
+    {
+        if (exitObject != null)
+            exitObject.SetActive(false);
+    }
     public void StartBossFight()
     {
         if (!isActive)
@@ -28,7 +45,7 @@ public class BossFightController : MonoBehaviour
 
     private IEnumerator BossSequence()
     {
-        while (true)
+        while (!isDefeated)
         {
             yield return MoveHorizontallyForRandomDuration();
             yield return PauseAndMoveVertically();
@@ -98,5 +115,48 @@ public class BossFightController : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
             yield return null;
         }
+    }
+    public void TakeHit()
+    {
+        if (isDefeated) return;
+
+        currentHits--;
+        Debug.Log("leben: " + currentHits);
+
+        if (currentHits <= 0)
+        {
+            isDefeated = true;
+            isActive = false;
+            OnBossDefeated();
+        }
+    }
+
+    private void OnBossDefeated()
+    {
+        Debug.Log("Boss besiegt"); 
+        StartCoroutine(DefeatSequence());
+    }
+    private IEnumerator DefeatSequence()
+    {
+        Vector3 originalScale = transform.localScale;
+        Vector3 targetScale = Vector3.zero;
+        float timer = 0f;
+
+        // Schrumpf-Animation
+        Debug.Log("schrumpfen");
+        while (timer < shrinkDuration)
+        {
+            timer += Time.deltaTime;
+            transform.localScale = Vector3.Lerp(originalScale, targetScale, timer / shrinkDuration);
+            yield return null;
+        }
+
+        // Objekt zerstören
+        Destroy(gameObject);
+
+        Debug.Log("exit");
+
+        if (exitObject != null)
+            exitObject.SetActive(true);
     }
 }

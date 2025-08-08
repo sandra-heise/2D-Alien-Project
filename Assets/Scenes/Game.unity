@@ -32848,6 +32848,7 @@ GameObject:
   - component: {fileID: 782612539}
   - component: {fileID: 782612540}
   - component: {fileID: 782612541}
+  - component: {fileID: 782612542}
   m_Layer: 0
   m_Name: spider
   m_TagString: spider
@@ -32944,8 +32945,55 @@ MonoBehaviour:
   verticalMoveSpeed: 3
   waitAtBottom: 0.5
   waitAtTop: 0.1
+  maxHits: 3
 --- !u!61 &782612541
 BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 782612537}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0.2079492}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.71, y: 0.45}
+    newSize: {x: 0.71, y: 0.45}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.71, y: 0.08568582}
+  m_EdgeRadius: 0
+--- !u!60 &782612542
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -32988,8 +33036,32 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.71, y: 0.45}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.035, y: -0.225}
+      - {x: -0.035, y: -0.205}
+      - {x: 0.015, y: -0.225}
+      - {x: 0.195, y: -0.225}
+      - {x: 0.195, y: -0.13499999}
+      - {x: 0.175, y: -0.085}
+      - {x: 0.225, y: -0.044999998}
+      - {x: 0.21499999, y: -0.065}
+      - {x: 0.205, y: -0.185}
+      - {x: 0.205, y: -0.225}
+      - {x: 0.355, y: -0.225}
+      - {x: 0.355, y: 0.21499999}
+      - {x: 0.345, y: 0.225}
+      - {x: -0.355, y: 0.225}
+      - {x: -0.355, y: -0.225}
+      - {x: -0.205, y: -0.225}
+      - {x: -0.185, y: -0.13499999}
+      - {x: -0.185, y: -0.155}
+      - {x: -0.155, y: -0.225}
+    - - {x: -0.225, y: 0.095}
+      - {x: -0.24499999, y: 0.095}
+      - {x: -0.235, y: 0.035}
+      - {x: -0.21499999, y: 0.024999999}
+  m_UseDelaunayMesh: 0
 --- !u!1 &783175086
 GameObject:
   m_ObjectHideFlags: 0
@@ -64822,7 +64894,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 563cb54d468e4fe42856ca82fc0c4a78, type: 3}
   m_Resource: {fileID: 8300000, guid: 563cb54d468e4fe42856ca82fc0c4a78, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
