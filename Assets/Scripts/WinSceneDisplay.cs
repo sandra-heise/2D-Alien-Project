@@ -24,6 +24,12 @@ public class WinSceneDisplay : MonoBehaviour
 
     public void ReplayLevel()
     {
+        CheckpointManager.ResetCheckpoints();
+
+        if (GameManager.Instance != null)
+        {
+            Destroy(GameManager.Instance.gameObject);
+        }
         SceneManager.LoadScene("Game"); 
     }
 }

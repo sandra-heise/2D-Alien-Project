@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class CheckpointManager : MonoBehaviour
 {
@@ -12,17 +12,27 @@ public class CheckpointManager : MonoBehaviour
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        if (!checkpointReached)
+        {
+            SetStartPoint();
+        }
     }
 
     private void Awake()
     {
-        // Beim Neustart des Spiels zurück zum Startpunkt
         if (!checkpointReached)
         {
-            currentCheckpointPosition = GameObject.Find("StartPoint").transform.position;
+            SetStartPoint();
+         }
+    }
+    private void SetStartPoint()
+    {
+        GameObject startObj = GameObject.Find("StartPoint");
+        if (startObj != null)
+        {
+            currentCheckpointPosition = startObj.transform.position;
         }
     }
-
     public void ActivateCheckpoint(Transform checkpointTransform)
     {
         currentCheckpointPosition = checkpointTransform.position;
@@ -43,5 +53,22 @@ public class CheckpointManager : MonoBehaviour
     public static void ResetCheckpoints()
     {
         checkpointReached = false;
+        GameObject startObj = GameObject.Find("StartPoint");
+        if (startObj != null)
+        {
+            currentCheckpointPosition = startObj.transform.position;
+        }
+        foreach (GameObject flag in GameObject.FindGameObjectsWithTag("Checkpoint"))
+        {
+            SpriteRenderer sr = flag.GetComponent<SpriteRenderer>();
+            if (sr != null)
+            {
+                CheckpointManager manager = flag.GetComponent<CheckpointManager>();
+                if (manager != null)
+                {
+                    sr.sprite = manager.inactiveFlag;
+                }
+            }
+        }
     }
 }
