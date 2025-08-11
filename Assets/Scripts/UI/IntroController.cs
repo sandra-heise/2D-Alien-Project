@@ -22,7 +22,6 @@ public class IntroController : MonoBehaviour
 
     void LoadMainScene()
     {
-        PlayerPrefs.SetInt("IntroShown", 1);
         SceneManager.LoadScene(mainSceneName);
     }
 }

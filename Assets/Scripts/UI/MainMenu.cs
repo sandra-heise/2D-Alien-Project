@@ -1,11 +1,30 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using System.Collections;
 public class MainMenu : MonoBehaviour
 {
 
     public string introSceneName = "IntroScene";
-    public string gameSceneName = "Game";
+    public GameObject firstSelectedButton;
+
+    private void Start()
+    {
+        StartCoroutine(SelectButtonNextFrame());
+        
+    }
+
+    private IEnumerator SelectButtonNextFrame()
+    {
+        if (EventSystem.current == null)
+        {
+            yield break;
+        }
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(firstSelectedButton.gameObject);
+    }
+
     public void PlayGame()
     {
         CheckpointManager.ResetCheckpoints();
@@ -13,14 +32,9 @@ public class MainMenu : MonoBehaviour
         {
             Destroy(GameManager.Instance.gameObject);
         }
-        if (PlayerPrefs.GetInt("IntroShown", 0) == 1)
-        {
-            SceneManager.LoadScene(gameSceneName);
-        }
-        else
-        {
-            SceneManager.LoadScene(introSceneName);
-        }
+       
+        SceneManager.LoadScene(introSceneName);
+       
     }
 
 }
