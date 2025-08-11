@@ -3413,8 +3413,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 1002078473}
     m_Modifications:
     - target: {fileID: 709008199761538176, guid: 976be5fb5aa976d458d98e4e66f03088, type: 3}
+      propertyPath: moveSpeed
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 709008199761538176, guid: 976be5fb5aa976d458d98e4e66f03088, type: 3}
       propertyPath: moveDistance
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2063128507385172896, guid: 976be5fb5aa976d458d98e4e66f03088, type: 3}
       propertyPath: m_Name
@@ -8121,7 +8125,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 709008199761538176, guid: 976be5fb5aa976d458d98e4e66f03088, type: 3}
       propertyPath: moveDistance
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 2063128507385172896, guid: 976be5fb5aa976d458d98e4e66f03088, type: 3}
       propertyPath: m_Name
@@ -28945,7 +28949,7 @@ Transform:
   m_GameObject: {fileID: 674156039}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 76.941, y: -1.514, z: 0}
+  m_LocalPosition: {x: 77.54, y: -1.514, z: 0}
   m_LocalScale: {x: 1.2808, y: 1.5460982, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -62070,6 +62074,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1002078473}
     m_Modifications:
     - target: {fileID: 709008199761538176, guid: 976be5fb5aa976d458d98e4e66f03088, type: 3}
+      propertyPath: moveSpeed
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 709008199761538176, guid: 976be5fb5aa976d458d98e4e66f03088, type: 3}
       propertyPath: moveDistance
       value: 2
       objectReference: {fileID: 0}
@@ -77622,7 +77630,7 @@ Transform:
   m_GameObject: {fileID: 2003832964}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 76.397, y: -1.5088, z: 0}
+  m_LocalPosition: {x: 77.107, y: -1.5088, z: 0}
   m_LocalScale: {x: 1.3097, y: 1.2808, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -77678,7 +77686,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 1.8393815, y: 0.7}
+  m_Size: {x: 2.3815172, y: 0.7}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -84652,8 +84660,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 1002078473}
     m_Modifications:
     - target: {fileID: 709008199761538176, guid: 976be5fb5aa976d458d98e4e66f03088, type: 3}
+      propertyPath: moveSpeed
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 709008199761538176, guid: 976be5fb5aa976d458d98e4e66f03088, type: 3}
       propertyPath: moveDistance
-      value: 2
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: 2063128507385172896, guid: 976be5fb5aa976d458d98e4e66f03088, type: 3}
       propertyPath: m_Name
