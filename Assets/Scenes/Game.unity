@@ -2253,8 +2253,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 3
-  MaxDistance: 5
+  MinDistance: 2
+  MaxDistance: 3.5
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -13318,7 +13318,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &334884509
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -33105,7 +33105,7 @@ MonoBehaviour:
   waitAtBottom: 0.5
   waitAtTop: 0.1
   maxHits: 3
-  exitObject: {fileID: 0}
+  exitObject: {fileID: 334884508}
 --- !u!61 &782612541
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -39969,8 +39969,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 3
-  MaxDistance: 5
+  MinDistance: 2
+  MaxDistance: 3.5
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -56972,8 +56972,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 3
-  MaxDistance: 5
+  MinDistance: 2
+  MaxDistance: 3.5
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
