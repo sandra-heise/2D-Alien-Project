@@ -157,6 +157,11 @@ public class BossFightController : MonoBehaviour
     }
     private IEnumerator DefeatSequence()
     {
+        foreach (Collider2D col in GetComponents<Collider2D>())
+        {
+            col.enabled = false;
+        }
+
         Vector3 originalScale = transform.localScale;
         Vector3 targetScale = Vector3.zero;
         float timer = 0f;

@@ -5,10 +5,10 @@ public class ExitTrigger : MonoBehaviour
 {
     [SerializeField] private string winningSceneName = "End";
     [SerializeField] private LevelTimer levelTimer;
-
+    private AudioSource audioSource;
     private void Start()
     {
-
+        audioSource = GetComponent<AudioSource>();
         if (levelTimer == null)
         {
             levelTimer = FindObjectOfType<LevelTimer>();
@@ -19,6 +19,9 @@ public class ExitTrigger : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.CompareTag("Player")) return;
+
+        if (audioSource != null)
+            audioSource.Play();
 
         // Absicherung: Falls levelTimer nie zugewiesen wurde
         if (levelTimer == null)

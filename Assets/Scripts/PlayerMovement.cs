@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce = 10f;
     private bool isGrounded;
     private bool hasUmbrella = false;
-    private Vector2 startPosition = new Vector2(-8f,0f);  //new Vector2(108f, 8f);//new Vector2(83f, 0f);  //new Vector2(58f, 0f); // new Vector2(-8f, 0f);//new Vector2(14f, 0f); 
+    private Vector2 startPosition = new Vector2(-8f, 0f);
     private int waterTriggerCount = 0;
     private bool canHitBoss = true;  
     private float hitCooldown = 3f;
@@ -169,13 +169,16 @@ public class PlayerMovement : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("spider"))
         {
-           
-           BossFightController boss = collision.gameObject.GetComponent<BossFightController>();
-           if (boss != null)
+            if (canHitBoss) // nur wenn Player Schaden machen darf
+
             {
-             boss.TakeHit();
-             canHitBoss = false;
-             Invoke(nameof(ResetHit), hitCooldown);
+                BossFightController boss = collision.gameObject.GetComponent<BossFightController>();
+                if (boss != null)
+                {
+                    boss.TakeHit();
+                    canHitBoss = false;
+                    Invoke(nameof(ResetHit), hitCooldown);
+                }
             }
            Bounce(12f);
         }
@@ -219,16 +222,28 @@ public class PlayerMovement : MonoBehaviour
                 break;
 
             case "Spike":
-            case "lava":
-            case "snakeLava":
             case "Fish":
             case "spider":
                 StartCoroutine(playerHealth.LoseLife());
                 break;
 
+            case "lava":
+            case "snakeLava":
+                if (BackgroundMusicManager.Instance != null)
+                {
+                    BackgroundMusicManager.Instance.StopCastleMusic();
+                }
+                StartCoroutine(playerHealth.LoseLife());
+                break;
+
+
             case "ghost":
                 if (powerup != null && powerup.IsInvisible)
                     break;
+                if (BackgroundMusicManager.Instance != null)
+                {
+                    BackgroundMusicManager.Instance.StopCastleMusic();
+                }
                 StartCoroutine(playerHealth.LoseLife());
                 break;
 

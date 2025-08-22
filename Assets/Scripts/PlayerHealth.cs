@@ -41,10 +41,6 @@ public class PlayerHealth : MonoBehaviour
         powerup?.CancelPowerUp();
         UpdateLifeUI();
         lavaController.ResetLava();
-        if (BackgroundMusicManager.Instance != null)
-        {
-            BackgroundMusicManager.Instance.StopCastleMusic();
-        }
 
         if (Diamond.lastCollectedDiamond != null)
         {
